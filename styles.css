@@ -1,0 +1,1666 @@
+/* =========================================================================
+   Wellness Store — case study
+   Tokens and rules from DESIGN.md. Marigold appears on wallet, pricing,
+   and the April peak marker only.
+   ========================================================================= */
+
+:root {
+  /* Dark, cool-neutral, tuned to the product's own blue. --primary is sampled from
+     the shipped app (CONTEXT.md §15); --accent is the same 210° hue lifted so it
+     carries on this ground. One colour, two roles. */
+  --ground:      #0B0F14;
+  --raised:      #121821;
+  --rule:        #253141;
+  --ink:         #E8EDF3;
+  --ink-2:       #A3B0C0;
+  --ink-3:       #6C7C90;
+  --primary:     #0051A2;  /* reference value; too deep for text on --ground */
+  --accent:      #4B9EF1;
+  --accent-sunk: rgba(75, 158, 241, 0.10);
+
+  --measure:  66ch;
+  --rail:     11rem;
+  --breakout: min(92vw, 1160px);
+
+  --sans:    "Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --mono:    "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --gap-section: clamp(3rem, 7vw, 5.5rem);
+}
+
+/* The light theme mirrors the roles; it does not invert them. The accent darkens
+   back to the app's shipped primary to hold contrast on a light ground. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --ground:      #FAFBFC;
+    --raised:      #F1F4F7;
+    --rule:        #D8DFE7;
+    --ink:         #0B0F14;
+    --ink-2:       #46545F;
+    --ink-3:       #687582;
+    --accent:      #0051A2;
+    --accent-sunk: rgba(0, 81, 162, 0.08);
+  }
+}
+
+:root[data-theme="light"] {
+  --ground:      #FAFBFC;
+  --raised:      #F1F4F7;
+  --rule:        #D8DFE7;
+  --ink:         #0B0F14;
+  --ink-2:       #46545F;
+  --ink-3:       #687582;
+  --accent:      #0051A2;
+  --accent-sunk: rgba(0, 81, 162, 0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  /* the chart is wider than a phone and scrolls inside its own container;
+     clip at the root so that never becomes a horizontal scroll on the page */
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; }
+
+::selection { background: var(--accent-sunk); color: var(--ink); }
+
+/* ---------------------------------------------------------------- a11y */
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Wrap a data table in .sr-only rather than applying it to the <table>: overflow is
+   unreliable on a table box, so its rows escape the 1px clip and widen the document.
+   A div clips properly and the table keeps its native row/cell semantics. */
+
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 10;
+  background: var(--ink);
+  color: var(--ground);
+  padding: 0.75rem 1rem;
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  text-decoration: none;
+}
+.skip:focus { left: 0.5rem; top: 0.5rem; }
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------- layout */
+
+.measure {
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+.breakout {
+  max-width: var(--breakout);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  margin-block-start: clamp(1.75rem, 4vw, 2.75rem);
+}
+
+.measure-in { max-width: var(--measure); }
+
+/* prose returning to the measure after a full-width figure needs air,
+   or it reads as a continuation of the table above it */
+.breakout + .measure { margin-block-start: clamp(1.75rem, 4vw, 2.75rem); }
+
+main > section {
+  padding-block: var(--gap-section);
+  border-top: 1px solid var(--rule);
+}
+
+footer {
+  border-top: 1px solid var(--rule);
+  padding-block: 2.5rem 4rem;
+  color: var(--ink-3);
+  font-size: 0.875rem;
+}
+
+/* ---------------------------------------------------- section numerals */
+
+.num {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
+  margin: 0 0 0.5rem;
+}
+
+/* ---------------------------------------------- shell: rail + prose body */
+
+.shell {
+  max-width: var(--breakout);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+.shell .body { max-width: var(--measure); }
+
+.rail-note {
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--ink-3);
+  margin: 0 0 1.25rem;
+  max-width: 12rem;
+}
+
+@media (min-width: 1024px) {
+  .shell {
+    grid-template-columns: var(--rail) minmax(0, 1fr);
+    column-gap: 2.5rem;
+  }
+  .rail { grid-column: 1; }
+  .rail .num { margin-bottom: 0.4rem; }
+  .rail-note { margin-bottom: 0; }
+  .shell .body { grid-column: 2; }
+
+  /* prose that returns after a full-width figure lines up with the body column */
+  main > section > .measure {
+    max-width: var(--breakout);
+    margin-inline: auto;
+    padding-left: calc(1.25rem + var(--rail) + 2.5rem);
+    padding-right: 1.25rem;
+  }
+  main > section > .measure > * { max-width: var(--measure); }
+}
+
+/* --------------------------------------------------------- typography */
+
+h2, h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-optical-sizing: auto;
+  line-height: 1.12;
+  margin: 0 0 0.75rem;
+  text-wrap: balance;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  letter-spacing: -0.012em;
+  margin-bottom: 1.25rem;
+}
+
+h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-top: 2.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p { margin: 0 0 1.15rem; }
+p:last-child { margin-bottom: 0; }
+
+strong { font-weight: 600; }
+
+.lede {
+  font-size: 1.1875rem;
+  line-height: 1.55;
+  color: var(--ink-2);
+  margin-bottom: 2rem;
+}
+
+.statement {
+  font-family: var(--display);
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.5rem;
+  text-wrap: pretty;
+}
+.statement.small {
+  font-size: clamp(1.15rem, 2.2vw, 1.35rem);
+  margin-top: 1.75rem;
+}
+
+/* the one restricted accent: wallet and money */
+.wallet { color: var(--accent); font-weight: 500; }
+
+/* ------------------------------------------------------------ the hero */
+
+.hero { padding-block: clamp(2rem, 5vw, 3.5rem) var(--gap-section); }
+
+.chart-figure { margin: 0 0 clamp(2.5rem, 6vw, 4rem); }
+
+.chart-scroll {
+  overflow-x: auto;
+  padding-inline: 1.25rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.chart {
+  display: block;
+  width: 100%;
+  min-width: 660px;
+  max-width: 1240px;
+  margin-inline: auto;
+  height: auto;
+}
+
+.chart .grid line { stroke: #1C2530; stroke-width: 1; }
+.chart .grid line.axis { stroke: #37465A; }
+
+.chart .tick text {
+  font-family: var(--mono);
+  font-size: 15px;
+  fill: var(--ink-3);
+}
+.chart .tick.y text { text-anchor: end; }
+.chart .tick.y .unit { font-size: 13px; fill: var(--ink-3); }
+.chart .tick.x text { text-anchor: middle; }
+.chart .tick.x text:first-child { text-anchor: start; }
+.chart .tick.x text:last-child { text-anchor: end; }
+.chart .tick.x { transform: translateY(388px); }
+
+.chart .area { fill: var(--accent-sunk); }
+
+.chart .line {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.chart .dots circle { fill: var(--ground); stroke: var(--ink); stroke-width: 2; }
+
+/* the April peak — the only full-strength accent mark on the chart */
+.chart .peak circle {
+  fill: var(--accent);
+  stroke: var(--ground);
+  stroke-width: 3;
+}
+.chart .peak line {
+  stroke: var(--accent);
+  stroke-width: 1;
+  stroke-dasharray: 2 4;
+  opacity: 0.55;
+}
+.chart .peak text {
+  font-family: var(--mono);
+  font-size: 17px;
+  font-weight: 500;
+  fill: var(--accent);
+  text-anchor: middle;
+}
+
+.chart .band line { stroke: #37465A; stroke-width: 2; }
+.chart .band text {
+  font-family: var(--mono);
+  font-size: 13px;
+  fill: var(--ink-3);
+}
+
+/* draw-on: the page's only non-user-triggered animation */
+.chart .line,
+.chart .dots,
+.chart .peak {
+  transition: none;
+}
+
+.chart.draw .line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 1600ms cubic-bezier(0.33, 0.9, 0.35, 1) forwards;
+}
+.chart.draw .dots,
+.chart.draw .peak circle,
+.chart.draw .peak text,
+.chart.draw .peak line {
+  opacity: 0;
+  animation: fade 500ms ease-out 1250ms forwards;
+}
+
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes fade { to { opacity: 1; } }
+.chart.draw .peak line { animation-name: fade-dim; }
+@keyframes fade-dim { to { opacity: 0.55; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .chart.draw .line,
+  .chart.draw .dots,
+  .chart.draw .peak circle,
+  .chart.draw .peak text,
+  .chart.draw .peak line {
+    animation: none;
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  .chart.draw .peak line { opacity: 0.55; }
+  * { transition-duration: 0.01ms !important; }
+}
+
+figcaption {
+  max-width: var(--measure);
+  margin: 1.5rem auto 0;
+  padding-inline: 1.25rem;
+  color: var(--ink-2);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+/* ------------------------------------------------------ hero fact list */
+
+.facts, .stack {
+  margin: 0;
+  display: grid;
+  gap: 0;
+}
+
+.facts > div {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: 0.15rem 1rem;
+  padding-block: 0.6rem;
+  border-top: 1px solid var(--rule);
+}
+.facts > div dd:nth-of-type(n + 2) { grid-column: 2; }
+.facts > div:last-child { border-bottom: 1px solid var(--rule); }
+
+.facts dt {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
+  padding-top: 0.2rem;
+}
+.facts dd { margin: 0; font-size: 0.9375rem; }
+
+@media (max-width: 480px) {
+  .facts > div { grid-template-columns: 1fr; gap: 0.15rem; }
+  .facts > div dd:nth-of-type(n + 2) { grid-column: 1; }
+}
+
+/* ----------------------------------------------------- stacked def list */
+
+.stack > div { padding-block: 1rem; border-top: 1px solid var(--rule); }
+.stack > div:last-child { border-bottom: 1px solid var(--rule); }
+
+.stack dt {
+  font-weight: 600;
+  font-size: 0.9375rem;
+  margin-bottom: 0.3rem;
+}
+.stack dd { margin: 0; color: var(--ink-2); }
+.stack ol {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.4rem;
+}
+
+/* --------------------------------------------------------------- tables */
+
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+.grid-table {
+  width: 100%;
+  min-width: 34rem;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  text-align: left;
+}
+
+.grid-table caption {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
+  text-align: left;
+  padding-bottom: 0.75rem;
+}
+
+.grid-table th, .grid-table td {
+  padding: 0.85rem 1rem 0.85rem 0;
+  border-top: 1px solid var(--rule);
+  vertical-align: top;
+}
+.grid-table tbody tr:last-child th,
+.grid-table tbody tr:last-child td { border-bottom: 1px solid var(--rule); }
+
+.grid-table thead th {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
+  border-top: 1px solid var(--ink-3);
+}
+
+.grid-table tbody th {
+  font-weight: 600;
+  white-space: nowrap;
+  padding-right: 1.5rem;
+}
+
+.grid-table td { color: var(--ink-2); }
+
+/* money figures carry the accent */
+.grid-table .fig {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+  font-weight: 500;
+  white-space: nowrap;
+  padding-right: 1.5rem;
+}
+
+/* ------------------------------------------------------------ sequence */
+
+.fig-note {
+  margin-top: 1.5rem;
+  color: var(--ink-2);
+  font-size: 0.9375rem;
+}
+
+
+
+/* ---------------------------------------------------------------- chips */
+
+.chip {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-2);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0.2rem 0.5rem;
+  white-space: nowrap;
+  font-weight: 400;
+}
+.chip.live { color: var(--ink); border-color: var(--ink-3); }
+
+/* --------------------------------------------------------------- phases */
+
+.phases {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+}
+
+.phases > li {
+  padding-block: 1.5rem;
+  border-top: 1px solid var(--rule);
+  max-width: var(--measure);
+}
+.phases > li:last-child { border-bottom: 1px solid var(--rule); }
+
+.phase-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-family: var(--display);
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.phase-n {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
+  font-weight: 400;
+}
+
+.decision {
+  border-left: 2px solid var(--ink-3);
+  padding-left: 1rem;
+  font-style: italic;
+  color: var(--ink-2);
+  margin-bottom: 0;
+}
+
+/* -------------------------------------------------------------- caveat */
+
+.caveat {
+  margin-top: 2rem;
+  padding: 1.25rem 1.25rem 1.25rem 1.15rem;
+  border-left: 2px solid var(--ink);
+  background: var(--raised);
+  font-size: 0.9375rem;
+  color: var(--ink-2);
+}/* ------------------------------------------------------------ next list */
+
+.next-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: n;
+}
+
+.next-list li {
+  counter-increment: n;
+  padding-block: 1rem;
+  border-top: 1px solid var(--rule);
+  display: grid;
+  grid-template-columns: 2.25rem 1fr;
+  gap: 0.5rem;
+  color: var(--ink-2);
+}
+.next-list li:last-child { border-bottom: 1px solid var(--rule); }
+
+.next-list li::before {
+  content: counter(n, decimal-leading-zero);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--ink-3);
+  padding-top: 0.3rem;
+}
+
+
+/* ========================================================== screen figures */
+
+/* One rule for every product screenshot on the page. The captures carry a thin
+   sliver of device bezel;
+
+/* ============================================================ big figures */
+
+.headline-figures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 1px;
+  background: var(--rule);
+  border-block: 1px solid var(--rule);
+  margin-bottom: 2rem;
+}
+
+.headline-figures > div {
+  background: var(--ground);
+  padding: 1.5rem 1.25rem;
+}
+
+.headline-figures .hf-value {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 500;
+  color: var(--accent);
+  line-height: 1;
+  margin: 0 0 0.5rem;
+}
+
+.headline-figures .hf-label {
+  font-size: 0.875rem;
+  color: var(--ink-2);
+  margin: 0;
+}
+
+
+/* Phases follow the page's rail system rather than starting at the breakout edge,
+   which left a wide empty column beside the prose. */
+@media (min-width: 1024px) {
+  .phases > li {
+    display: grid;
+    grid-template-columns: var(--rail) minmax(0, 1fr);
+    column-gap: 2.5rem;
+    max-width: none;
+  }
+  .phases .phase-head {
+    grid-column: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    margin: 0;
+    font-size: 1.15rem;
+  }
+  .phases > li > :not(.phase-head) {
+    grid-column: 2;
+    max-width: var(--measure);
+  }
+}
+
+
+/* DESIGN.md §2: the accent marks the wallet, rupee values, and the April peak.
+   Counts and percentages are figures, not money — they stay in ink. */
+.grid-table .fig.plain,
+.headline-figures .hf-value.plain { color: var(--ink); }
+
+
+/* ============================================================== diagrams */
+
+.diagram { margin: 0 0 1.5rem; }
+.diagram-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+.dia {
+  display: block;
+  width: 100%;
+  min-width: 720px;
+  height: auto;
+}
+
+.dia .d-box {
+  fill: var(--raised);
+  stroke: var(--rule);
+  stroke-width: 1;
+}
+.dia .d-key { fill: var(--ground); stroke: var(--ink-3); }
+
+.dia .d-col {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  fill: var(--ink-3);
+}
+.dia .d-t {
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 600;
+  fill: var(--ink);
+}
+.dia .d-s {
+  font-family: var(--sans);
+  font-size: 13px;
+  fill: var(--ink-2);
+}
+.dia .d-cta {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 500;
+  fill: var(--ink);
+}
+.dia .d-note {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-style: italic;
+  fill: var(--ink-3);
+}
+.dia .d-line {
+  fill: none;
+  stroke: var(--ink-3);
+  stroke-width: 1.5;
+}
+.dia .d-dash { stroke-dasharray: 3 4; }
+
+.diagram figcaption {
+  max-width: var(--measure);
+  margin: 1rem 0 0;
+  padding: 0;
+}
+
+
+/* ================================================ per-screen annotation */
+/* Each screen carries three things and no more: what it is, the one decision
+   behind it, and the components it runs on. Kept short on purpose — the
+   screenshot is the description;
+
+/* three screens abreast for the wallet group;
+
+/* ---------------------------------------------------------------------------
+   Section reveals. Applied only once, by script, and only when the visitor
+   has not asked for reduced motion — the class is never added otherwise.
+   --------------------------------------------------------------------------- */
+
+.js-motion .reveal {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.js-motion .reveal.shown {
+  opacity: 1;
+  transform: none;
+  transition: opacity 620ms cubic-bezier(0.22, 0.7, 0.3, 1),
+              transform 620ms cubic-bezier(0.22, 0.7, 0.3, 1);
+}
+
+/* Diagram connectors trace the flow they describe, once, on entry. */
+.js-motion .dia .d-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.js-motion .dia.shown .d-line {
+  animation: trace 820ms cubic-bezier(0.4, 0.8, 0.35, 1) 320ms forwards;
+}
+
+.js-motion .dia .d-box,
+.js-motion .dia text { opacity: 0; }
+
+.js-motion .dia.shown .d-box,
+.js-motion .dia.shown text { animation: fade 420ms ease-out forwards; }
+
+@keyframes trace { to { stroke-dashoffset: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .js-motion .reveal,
+  .js-motion .dia .d-line,
+  .js-motion .dia .d-box,
+  .js-motion .dia text {
+    opacity: 1;
+    transform: none;
+    stroke-dashoffset: 0;
+    animation: none;
+    transition: none;
+  }
+}
+
+
+/* ---------------------------------------------------------------------------
+   Scale contrast. The page was running on one voice; the section numerals and
+   the headings now carry real weight difference against the body measure.
+   --------------------------------------------------------------------------- */
+
+.num {
+  font-size: clamp(1.5rem, 2.4vw, 2.125rem);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 0.65rem;
+}
+
+h2 {
+  font-size: clamp(1.75rem, 3.4vw, 2.625rem);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.statement { font-size: clamp(1.5rem, 3.4vw, 2rem); }
+
+/* ---------------------------------------------------------------------------
+   Seating the screenshots. Light captures on a dark ground read as floating
+   plates; a raised well under each group gives them a surface to sit on.
+   One level of surface only — see DESIGN.md §8.11.
+   --------------------------------------------------------------------------- */
+
+/* Captions and notes that ride under a figure keep the measure and the edge. */
+.measure-in { margin-inline: 0; }
+
+/* ---------------------------------------------------------------------------
+   Section rail.
+
+   The page already numbers its sections in the margin; this is that index made
+   navigable. Numerals only — the margin arithmetic decides it: at 1440 the
+   breakout leaves 140px a side, at 1280 only 60px, so section names cannot fit
+   at any laptop width. The name travels in the link text instead, clipped from
+   view but read by assistive tech and announced on focus, so nothing here is a
+   hover-only affordance (DESIGN.md §8.12).
+
+   Ink only. The accent is reserved (§2) and never marks a link or an active
+   state; the current section is distinguished by lightness and a tick.
+   --------------------------------------------------------------------------- */
+
+.railnav { display: none; }
+
+.railnav ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.railnav a {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.28rem 0;
+  text-decoration: none;
+  border: 0;
+  color: var(--ink-3);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* the tick: absent until the section is current, so the column never shifts */
+.railnav a::after {
+  content: "";
+  width: 0.75rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0;
+}
+
+.railnav a:hover,
+.railnav a:focus-visible { color: var(--ink); }
+
+.railnav a:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+.railnav a[aria-current="true"] { color: var(--ink); }
+.railnav a[aria-current="true"]::after { opacity: 1; }
+
+.rn-name {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Only where the margin can actually hold it without touching the content
+   column. Below this the rail is not rendered at all. */
+/* The rail gets its own gutter rather than borrowing the page margin: the page
+   is padded left by the rail's width, so the content re-centres in what is left
+   and the two can never collide. Nothing in the layout is sized in `100vw`, so
+   this costs nothing elsewhere.
+
+   1400px is the floor and cannot go lower: `--breakout` is `min(92vw, 1160px)`,
+   and the padded body box is `viewport - 200px`. At 1400 that is 1200 — just
+   wide enough to hold 1160 with 20px a side. Below it the breakout would start
+   binding against a body that has already given 200px away. */
+@media (min-width: 1400px) {
+  body { padding-left: 12.5rem; }
+
+  .railnav {
+    display: block;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 1.5rem;
+    width: 10rem;
+    z-index: 5;
+  }
+
+  /* the name is the point of the rail; the numeral keeps it tied to the
+     in-flow index it mirrors */
+  .rn-name {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    clip-path: none;
+    white-space: normal;
+    font-family: var(--sans);
+    font-size: 0.6875rem;
+    letter-spacing: 0;
+    line-height: 1.25;
+  }
+
+  .railnav a { align-items: baseline; padding: 0.32rem 0; }
+  .railnav a::after { display: none; }
+
+  .rn-num { flex: 0 0 auto; opacity: 0.75; }
+  .railnav a[aria-current="true"] .rn-num { opacity: 1; }
+}
+
+/* Anchor jumps land with air above the heading, not flush on the section rule. */
+main > section { scroll-margin-top: 2.5rem; }
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+/* ---------------------------------------------------------------------------
+   Journeys.
+
+   Three flows, separated by space and a hairline — the page's own device.
+   DESIGN.md §4 rules out tinted bands and cards for separation, so the brief's
+   "alternating band" is rendered as the rule the rest of the page already uses.
+   --------------------------------------------------------------------------- */
+
+.journey + .journey {
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+  padding-top: clamp(3rem, 6vw, 4.5rem);
+  border-top: 1px solid var(--rule);
+}
+
+.j-head { margin: 0 0 1.1rem; }
+
+.j-name {
+  font-family: var(--display);
+  font-size: 1.375rem;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+}
+
+/* the step sequence: a genuine order, so the markers are numbered.
+   flex rather than fixed columns, since the three journeys differ in length */
+.spine {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 1.4rem;
+  padding: 0;
+  border-top: 1px solid var(--rule);
+}
+
+.spine > li {
+  flex: 1 1 0;
+  min-width: 7.5rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.8rem 0.9rem 0.8rem 0.9rem;
+  font-size: 0.9375rem;
+  border-right: 1px solid var(--rule);
+}
+
+.spine > li:last-child { border-right: 0; }
+
+.sp-n {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+/* the wallet journey is the one place the accent appears in this section,
+   and only on the markers that track the wallet itself (DESIGN.md §2) */
+.wallet-spine .sp-n { color: var(--accent); }
+
+.j-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  background: var(--raised);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.j-strip {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 11rem;
+  gap: 1rem;
+  align-items: start;
+}
+
+.j-strip figure { margin: 0; scroll-snap-align: start; }
+
+.j-strip img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--rule);
+  background: #fff;
+}
+
+.j-strip figcaption {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+  margin-top: 0.5rem;
+}
+
+.j-fields { max-width: 46rem; }
+
+/* the two PDP models get the most room in this section, and stay below the
+   Screens-section pairing, which DESIGN.md §7 keeps as the page's widest */
+.j-pair-wrap { margin-top: 1.75rem; }
+
+.j-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 18rem));
+  gap: clamp(1.25rem, 3vw, 2rem);
+  justify-content: start;
+  margin-bottom: 1rem;
+}
+
+.j-pair figure { margin: 0; }
+
+.j-pair img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid var(--rule);
+  background: #fff;
+}
+
+.j-pair figcaption {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+  margin-top: 0.55rem;
+}
+
+.j-pair-wrap .fig-note { max-width: var(--measure); margin: 0 0 0.6rem; }
+
+.sub-flow {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0.1rem 0.35rem;
+  margin-right: 0.45rem;
+}
+
+.caveat-inline { margin-top: 1.25rem; }
+
+@media (max-width: 680px) {
+  .j-scroll { padding: 1rem; }
+  .j-pair { grid-template-columns: minmax(0, 1fr); }
+  .spine > li { min-width: 50%; }
+}
+
+/* Journey field tables and labels. These were shared with the removed
+   Screen flow section; kept here as the Journeys section's own. */
+
+.phase-tag {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+  margin-left: 0.65rem;
+  white-space: nowrap;
+}
+
+.sp-t { color: var(--ink); }
+
+.fs-fields { margin: 0; display: grid; gap: 0.55rem; }
+
+.fs-fields > div {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: 0.9rem;
+  align-items: baseline;
+}
+
+.fs-fields dt {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.05em;
+  color: var(--ink-3);
+}
+
+.fs-fields dd { margin: 0; font-size: 0.9375rem; line-height: 1.5; }
+
+.fs-covered {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.5rem;
+}
+
+.fs-covered li {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-2);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.18rem 0.45rem;
+}
+
+@media (max-width: 680px) {
+  .fs-fields > div { grid-template-columns: minmax(0, 1fr); gap: 0.2rem; }
+}
+
+/* the card close-up inside the wallet journey */
+.j-card { margin: 0 0 1.25rem; max-width: 30rem; }
+
+.j-card img {
+  display: block;
+  width: 100%;
+  max-width: 20rem;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--rule);
+  background: #fff;
+}
+
+.j-card figcaption {
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--ink-3);
+  margin-top: 0.55rem;
+}
+
+/* ---------------------------------------------------------------------------
+   Goal and audience blocks. Levels and audiences read as parallel things, so
+   they sit side by side rather than stacking as labelled prose rows.
+   --------------------------------------------------------------------------- */
+
+.goal-blocks,
+.aud-blocks,
+.chal-blocks {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--rule);
+  border-block: 1px solid var(--rule);
+}
+
+.goal,
+.aud,
+.chal {
+  background: var(--ground);
+  padding: 1.35rem 1.25rem 1.5rem;
+}
+
+.goal-level,
+.aud-name {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
+  margin: 0 0 0.6rem;
+}
+
+.aud-name { color: var(--ink); font-size: 0.9375rem; letter-spacing: 0; font-family: var(--sans); font-weight: 600; }
+
+.goal-text,
+.aud-text,
+.chal-text {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+.goal-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.goal-list li + li { margin-top: 0.5rem; }
+
+@media (max-width: 860px) {
+  .goal-blocks,
+  .aud-blocks,
+  .chal-blocks { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* the brand page, shown whole: the Phase 2 journey's centrepiece */
+.j-feature {
+  display: grid;
+  grid-template-columns: 19rem minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+  margin: 1.75rem 0 1.5rem;
+}
+
+.j-feature figure { margin: 0; }
+
+.j-feature img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid var(--rule);
+  background: #fff;
+}
+
+.j-feature figcaption {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+  margin-top: 0.55rem;
+}
+
+.j-feature-note .fig-note { max-width: var(--measure); margin: 0 0 0.7rem; }
+
+@media (max-width: 860px) {
+  .j-feature { grid-template-columns: minmax(0, 1fr); }
+  .j-feature img { max-width: 17rem; }
+}
+
+/* two challenges, so this grid is its own width rather than the three-up default */
+.chal-blocks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+/* challenge blocks: numbered, since they are an enumeration the page refers back to */
+.chal-n {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+  margin: 0 0 0.55rem;
+}
+
+.chal-name {
+  margin: 0 0 0.5rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.aud-blocks.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+/* the journeys split into their phases */
+.phase-band { margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+
+.phase-band-label {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-2);
+  margin: 0;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--ink-3);
+}
+
+.phase-band + .journey { margin-top: 1.75rem; padding-top: 0; border-top: 0; }
+
+/* ---------------------------------------------------------------------------
+   Key design decisions: each call shown, then stated. The screen carries the
+   argument; the text says what to look for.
+   --------------------------------------------------------------------------- */
+
+.dec-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+}
+
+.dec-shot {
+  margin: 0 0 0.9rem;
+  background: var(--raised);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1rem;
+}
+
+.dec-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--rule);
+  background: #fff;
+}
+
+.dec-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }
+
+.dec-name {
+  margin: 0 0 0.45rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.dec-text { margin: 0; font-size: 0.9375rem; line-height: 1.55; color: var(--ink-2); }
+
+@media (max-width: 860px) {
+  .dec-grid { grid-template-columns: minmax(0, 1fr); }
+  .dec-shot img { max-width: 15rem; }
+  .dec-pair img { max-width: none; }
+}
+
+.results-band { margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+.results-band + .breakout { margin-top: 1.25rem; }
+
+.ia-head {
+  font-family: var(--sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 2rem 0 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* ---------------------------------------------------------------------------
+   Secondary research. Five benchmarked apps, each with the UX call it settled.
+   Captures are the author's own screenshots of third-party apps.
+   --------------------------------------------------------------------------- */
+
+.ref-group {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+}
+
+.ref-q {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
+  margin: 0 0 0.35rem;
+}
+
+.ref-cat {
+  margin: 0 0 0.9rem;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.ref-slots {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+}
+
+@media (max-width: 860px) {
+  .ref-group { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------------------------------------------------------------------------
+   Behind the scenes. The unpolished middle: prototype wiring and the desk it
+   happened on. Deliberately the only photographic content on the page.
+   --------------------------------------------------------------------------- */
+
+.bts { margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+
+.bts-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: clamp(1.25rem, 3vw, 2rem);
+  align-items: start;
+}
+
+.bts-grid figure { margin: 0; }
+
+.bts-grid img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--rule);
+}
+
+.bts-grid figcaption {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--ink-3);
+  margin-top: 0.6rem;
+  max-width: 42ch;
+}
+
+.bts .fig-note { margin-top: 1.5rem; }
+
+@media (max-width: 860px) {
+  .bts-grid { grid-template-columns: minmax(0, 1fr); }
+  .bts-tall img { max-width: 18rem; }
+}
+
+.ref-shot { margin: 0; }
+
+.ref-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--rule);
+  background: #fff;
+}
+
+.ref-shot figcaption {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.05em;
+  color: var(--ink-3);
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.ref-text + .ref-text { margin-top: 0.55rem; }
+
+.cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid var(--rule);
+}
+
+/* the cover settles in on load: a lift and a fade, once, never on scroll back */
+.js-motion .cover img {
+  opacity: 0;
+  transform: translateY(18px) scale(0.985);
+}
+
+.js-motion .cover.shown img {
+  opacity: 1;
+  transform: none;
+  transition: opacity 900ms cubic-bezier(0.22, 0.7, 0.3, 1),
+              transform 900ms cubic-bezier(0.22, 0.7, 0.3, 1);
+}
+
+/* the title and the facts follow it in, a beat later */
+.js-motion .hero-title { opacity: 0; transform: translateY(12px); }
+
+.js-motion .hero-title.shown {
+  opacity: 1;
+  transform: none;
+  transition: opacity 700ms cubic-bezier(0.22, 0.7, 0.3, 1) 260ms,
+              transform 700ms cubic-bezier(0.22, 0.7, 0.3, 1) 260ms;
+}
+
+/* The curve was the hero's full-bleed figure; inside the results it is a block
+   like any other and takes the breakout's left edge (DESIGN.md §4). */
+.chart-figure.in-results {
+  margin: 1.5rem auto 0;
+  max-width: var(--breakout);
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 1024px) {
+  .chart-figure.in-results {
+    padding-left: calc(1.25rem + var(--rail) + 2.5rem);
+    padding-right: 1.25rem;
+  }
+}
+
+.chart-figure.in-results .chart-scroll { padding-inline: 0; }
+.chart-figure.in-results .chart { max-width: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .js-motion .cover img,
+  .js-motion .hero-title {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* the cover carries the title; the h1 stays for document structure and is
+   clipped with the sr-only pattern rather than removed */
+.hero-title .lede { margin-top: 0; }
+
+/* ---------------------------------------------------------------------------
+   Approach as a flow of blocks. A real sequence, so the markers are numbered;
+   step 05 is marked as the one that loops.
+   --------------------------------------------------------------------------- */
+
+.flow-blocks {
+  list-style: none;
+  margin: 0 0 1.1rem;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--rule);
+  border-block: 1px solid var(--rule);
+}
+
+.fb {
+  background: var(--ground);
+  padding: 1.1rem 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.fb-n {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.fb-name { font-size: 0.9375rem; font-weight: 600; color: var(--ink); line-height: 1.3; }
+
+.fb-note { font-size: 0.8125rem; line-height: 1.4; color: var(--ink-3); }
+
+/* the step that loops carries a rule along its foot */
+.fb.loop { box-shadow: inset 0 -2px 0 var(--ink-3); }
+
+.loop-mark {
+  display: inline-block;
+  width: 1.5rem;
+  height: 2px;
+  background: var(--ink-3);
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 1000px) {
+  .flow-blocks { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 620px) {
+  .flow-blocks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* per-benchmark caption: the app, then the call it settled */
+.ref-shot figcaption { text-align: left; }
+
+.ref-name {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.05em;
+  color: var(--ink-2);
+  margin-bottom: 0.3rem;
+}
+
+.ref-call {
+  display: block;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  letter-spacing: 0;
+  color: var(--ink-3);
+}
+
+/* the live phase carries an indicator, not just the word */
+.phase-band-label { display: flex; align-items: center; gap: 0.5rem; }
+
+.live-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--ink);
+  flex: 0 0 auto;
+}
+
+/* ---------------------------------------------------------------------------
+   Narrow-width collapse. `.aud-blocks.two` and `.chal-blocks` set their own
+   column counts and were beating the earlier collapse rule on specificity and
+   source order, so both stayed two-up at 390px. Restated here, last and with
+   matching specificity.
+   --------------------------------------------------------------------------- */
+
+@media (max-width: 860px) {
+  .goal-blocks,
+  .aud-blocks,
+  .aud-blocks.two,
+  .chal-blocks,
+  .dec-grid,
+  .ref-group,
+  .bts-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .flow-blocks { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------------------------------------------------------------------------
+   Journeys: one vertical scale.
+
+   The section had accumulated per-component margins that stacked unpredictably
+   (measured gaps of 10, 20, 24, 28, 38, 56 and 72px against a steady 44 in every
+   other section). These rules set the scale explicitly and last:
+
+     4.5rem  before a phase or results band, the section's largest break
+     1.5rem  after a band, tying the label to what it introduces
+     3.5rem  between journeys inside the same phase, over a hairline
+     1.5rem  between a journey and its own trailing figures
+   --------------------------------------------------------------------------- */
+
+#journeys > .phase-band,
+#journeys > .results-band {
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+  margin-bottom: 0;
+}
+
+#journeys > .phase-band + .journey,
+#journeys > .results-band + .breakout {
+  margin-top: 1.5rem;
+  padding-top: 0;
+  border-top: 0;
+}
+
+#journeys > .journey + .journey {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  padding-top: clamp(2.5rem, 5vw, 3.5rem);
+  border-top: 1px solid var(--rule);
+}
+
+/* the figures, curve, caveat and note that follow the Phase 1 results band.
+   Order is: figures -> curve -> caveat -> note, so the adjacencies are stated
+   in that order rather than guessed at. */
+#journeys > .breakout + .chart-figure,
+#journeys > .chart-figure + .measure,
+#journeys > .measure + .measure { margin-top: 1.5rem; }
+
+#journeys > .chart-figure { margin-bottom: 0; }
+
+/* Approach: its two breakouts sat 30px apart against the page's 44 */
+#approach > .breakout + .breakout { margin-top: clamp(1.75rem, 4vw, 2.75rem); }
+
+/* one sub-head tier: a name that heads a group of blocks, above the 15px names
+   on the blocks themselves */
+.ia-head { font-size: 1.0625rem; }
+
+/* three learnings, so three columns: the two-up challenge grid left a filled
+   empty cell beside the third */
+.learn-blocks { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+@media (max-width: 860px) {
+  .learn-blocks { grid-template-columns: minmax(0, 1fr); }
+}
