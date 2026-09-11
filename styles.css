@@ -1679,3 +1679,48 @@ main > section:not(.dark) + section:not(.dark) { padding-top: 0; }
 
 /* the cover is a light card on the night ground */
 .hv-card { border-radius: clamp(10px, 1.4vw, 20px); }
+
+/* ------------------------------------------------------------ phone pass */
+
+/* the bar never wraps: the name holds, the section label gives way */
+.tb-mark { flex-shrink: 0; white-space: nowrap; padding-block: 0.5rem; }
+.tb-index { min-width: 0; }
+.tb-name { min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+
+/* thumb-sized targets, on every width: tablets are touch too */
+.tb-index { min-height: 44px; }
+.to-top { display: inline-block; padding-block: 0.8rem; margin-block: -0.8rem; }
+
+@media (max-width: 640px) {
+  /* mono labels stay legible at arm's length */
+  .kicker, .label, .sec-idx, .tb-index, .index-panel a span,
+  .meta dt, .role dt, .dda dt, .cap span, .chip, .tag, .band, .t-src,
+  .f6-n, .ref-name, .ph-n, .spine, .strip figcaption, .j-pair-shots figcaption,
+  .measures li::before, .l-num, .to-top, .role-list li::before { font-size: 0.8rem; }
+}
+
+@media (max-width: 560px) {
+  /* four types as a list: a one-word name like "Subscriptions" outgrows a half-width tile */
+  .types ul { grid-template-columns: minmax(0, 1fr); gap: 0.5rem; }
+  .types li {
+    min-height: 0;
+    flex-direction: row-reverse;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 1.1rem 1.25rem;
+  }
+
+  /* the whole year fits the width, so the peak is never off-screen */
+  .chart-scroll { overflow: visible; }
+  .chart { min-width: 0; overflow: visible; }
+  .chart .tick text { font-size: 34px; }
+  .chart .tick.y .unit { font-size: 28px; }
+  .chart .peak text { font-size: 40px; }
+  .chart .line { stroke-width: 6; }
+  .chart .grid line { stroke-width: 2.5; }
+  .chart .dots circle { r: 9px; stroke-width: 5; }
+  .chart .peak circle { r: 15px; stroke-width: 6; }
+  .chart .band { display: none; }
+  .chart .tick.x text:first-child,
+  .chart .tick.x text:last-child { text-anchor: middle; }
+}
