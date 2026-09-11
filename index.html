@@ -3,321 +3,311 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="dark light">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#0B0E14">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B0E14'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%230A62C2'/%3E%3C/svg%3E">
 <title>Wellness Store, Bajaj Finserv Health</title>
-<meta name="description" content="Bajaj Finserv Health's first e-commerce product: a wellness marketplace built from zero, with a B2B2C wallet as the hook.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta name="description" content="Case study. Bajaj Finserv Health's first e-commerce product: a wellness marketplace built from zero, with a B2B2C wallet as the hook.">
+<link rel="preload" href="public/fonts/BricolageGrotesque-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="public/fonts/Geist-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="public/cover/wellness-store-hero.webp" as="image" fetchpriority="high">
+<link rel="stylesheet" href="fonts.css">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<a class="skip" href="#problem">Skip to the case study</a>
+<a class="skip" href="#overview">Skip to the case study</a>
 
-<!-- Section rail. An index of the page, in the left margin, above 1280px only —
-     below that the viewport has no margin to hold it and the in-flow numerals
-     already do the job. Real links: keyboard and screen reader reach every
-     section without it being visible. -->
-<nav class="railnav" aria-label="Sections">
+<header class="topbar" data-tone="dark">
+  <a class="tb-mark" href="#top">Wellness Store</a>
+  <button class="tb-index" type="button" aria-expanded="false" aria-controls="index-panel">
+    <span class="tb-num" aria-hidden="true"></span>
+    <span class="tb-name">Index</span>
+    <span class="tb-plus" aria-hidden="true"></span>
+  </button>
+  <span class="tb-progress" aria-hidden="true"><span></span></span>
+</header>
+
+<nav class="index-panel" id="index-panel" aria-label="Sections" hidden>
   <ol>
-      <li><a href="#problem"><span class="rn-num">01</span><span class="rn-name">Problem</span></a></li>
-      <li><a href="#challenges"><span class="rn-num">02</span><span class="rn-name">Key challenges</span></a></li>
-      <li><a href="#role"><span class="rn-num">03</span><span class="rn-name">My role</span></a></li>
-      <li><a href="#overview"><span class="rn-num">04</span><span class="rn-name">Overview</span></a></li>
-      <li><a href="#goals"><span class="rn-num">05</span><span class="rn-name">Goals</span></a></li>
-      <li><a href="#persona"><span class="rn-num">06</span><span class="rn-name">Who we designed for</span></a></li>
-      <li><a href="#approach"><span class="rn-num">07</span><span class="rn-name">Approach</span></a></li>
-      <li><a href="#research"><span class="rn-num">08</span><span class="rn-name">Secondary research</span></a></li>
-      <li><a href="#decisions"><span class="rn-num">09</span><span class="rn-name">Key design decisions</span></a></li>
-      <li><a href="#phases"><span class="rn-num">10</span><span class="rn-name">Phases</span></a></li>
-      <li><a href="#journeys"><span class="rn-num">11</span><span class="rn-name">Journeys</span></a></li>
-      <li><a href="#learnings"><span class="rn-num">12</span><span class="rn-name">Key learnings</span></a></li>
-      <li><a href="#next"><span class="rn-num">13</span><span class="rn-name">Next steps</span></a></li>
+    <li><a href="#overview"><span>01</span>Overview</a></li>
+    <li><a href="#role"><span>02</span>My role</a></li>
+    <li><a href="#problem"><span>03</span>The problem</a></li>
+    <li><a href="#challenges"><span>04</span>Key challenges</a></li>
+    <li><a href="#goals"><span>05</span>Goals</a></li>
+    <li><a href="#persona"><span>06</span>Who we designed for</a></li>
+    <li><a href="#approach"><span>07</span>Approach</a></li>
+    <li><a href="#research"><span>08</span>Secondary research</a></li>
+    <li><a href="#decisions"><span>09</span>Key design decisions</a></li>
+    <li><a href="#phases"><span>10</span>Phases</a></li>
+    <li><a href="#journeys"><span>11</span>Journeys</a></li>
+    <li><a href="#results"><span>12</span>Results</a></li>
+    <li><a href="#phase2"><span>13</span>Phase 2</a></li>
+    <li><a href="#learnings"><span>14</span>Key learnings</a></li>
+    <li><a href="#next"><span>15</span>Next steps</a></li>
   </ol>
 </nav>
 
-<!-- ============================================================ 01 HERO -->
-<header class="hero">
+<!-- Side rail: the section index, fixed in its own left margin from 1180px.
+     Appears once the hero has scrolled away. -->
+<nav class="rail" aria-label="Sections, side rail">
+  <ol>
+    <li><a href="#overview"><span class="r-num">01</span><span class="r-name">Overview</span></a></li>
+    <li><a href="#role"><span class="r-num">02</span><span class="r-name">My role</span></a></li>
+    <li><a href="#problem"><span class="r-num">03</span><span class="r-name">The problem</span></a></li>
+    <li><a href="#challenges"><span class="r-num">04</span><span class="r-name">Challenges</span></a></li>
+    <li><a href="#goals"><span class="r-num">05</span><span class="r-name">Goals</span></a></li>
+    <li><a href="#persona"><span class="r-num">06</span><span class="r-name">Audience</span></a></li>
+    <li><a href="#approach"><span class="r-num">07</span><span class="r-name">Approach</span></a></li>
+    <li><a href="#research"><span class="r-num">08</span><span class="r-name">Research</span></a></li>
+    <li><a href="#decisions"><span class="r-num">09</span><span class="r-name">Decisions</span></a></li>
+    <li><a href="#phases"><span class="r-num">10</span><span class="r-name">Phases</span></a></li>
+    <li><a href="#journeys"><span class="r-num">11</span><span class="r-name">Journeys</span></a></li>
+    <li><a href="#results"><span class="r-num">12</span><span class="r-name">Results</span></a></li>
+    <li><a href="#phase2"><span class="r-num">13</span><span class="r-name">Phase 2</span></a></li>
+    <li><a href="#learnings"><span class="r-num">14</span><span class="r-name">Key learnings</span></a></li>
+    <li><a href="#next"><span class="r-num">15</span><span class="r-name">Next steps</span></a></li>
+  </ol>
+</nav>
 
-  <figure class="cover">
-    <img src="public/cover/wellness-store.png"
-         alt="Wellness Store: the title above two phone mockups, the Phase 1 home with its wallet balance and entitlement tiles, and the Phase 2 home with category tabs and a brand banner."
-         width="1600" height="1034" fetchpriority="high" decoding="async">
-  </figure>
 
+<!-- ================================================================ HERO -->
+<section class="hero dark" id="top" aria-label="Introduction">
+  <div class="wrap hero-head">
+    <p class="kicker">Case study &middot; Bajaj Finserv Health &middot; 2025&ndash;2026</p>
 
-  <div class="hero-title measure">
-    <h1 class="sr-only">Wellness Store</h1>
-    <p class="lede">
-      Bajaj Finserv Health&rsquo;s first e-commerce product. A wellness marketplace built
-      from zero, selling the full catalog through one familiar store, with a B2B2C
-      wallet as the hook.
-    </p>
+    <h1 class="hero-title" aria-label="Wellness Store">
+      <span class="word" aria-hidden="true"><span class="ch" style="--i:0">W</span><span class="ch" style="--i:1">e</span><span class="ch" style="--i:2">l</span><span class="ch" style="--i:3">l</span><span class="ch" style="--i:4">n</span><span class="ch" style="--i:5">e</span><span class="ch" style="--i:6">s</span><span class="ch" style="--i:7">s</span></span>
+      <span class="word" aria-hidden="true"><span class="ch" style="--i:9">S</span><span class="ch" style="--i:10">t</span><span class="ch" style="--i:11">o</span><span class="ch" style="--i:12">r</span><span class="ch" style="--i:13">e</span></span>
+    </h1>
 
-    <dl class="facts">
-      <div><dt>Product</dt><dd>Wellness Store</dd></div>
-      <div><dt>Organisation</dt><dd>Bajaj Finserv Health</dd></div>
-      <div><dt>Role</dt><dd>Product Designer, UX and UI</dd></div>
-      <div><dt>Team</dt><dd>PM, engineering, two vendor integration partners</dd></div>
-      <div><dt>Scope</dt><dd>Two phases live, a third in development</dd></div>
-      <div><dt>Period</dt><dd>2025–2026</dd></div>
-      <div>
-        <dt>Status</dt>
-        <dd>Phase 1 live</dd>
-        <dd>Phase 2 in development</dd>
-      </div>
-    </dl>
+    <div class="hero-foot">
+      <p class="hero-line">Bajaj Finserv Health&rsquo;s first e-commerce product. A wellness marketplace built from zero, with a B2B2C wallet as the hook.</p>
+      <dl class="meta">
+        <div><dt>Role</dt><dd>Product Designer, UX and UI</dd></div>
+        <div><dt>Timeline</dt><dd>2025&ndash;2026</dd></div>
+        <div><dt>Team</dt><dd>PM, engineering, two vendor integration partners</dd></div>
+        <div><dt>Status</dt><dd><span class="live-dot" aria-hidden="true"></span>Phase 1 live<br>Phase 2 in development</dd></div>
+      </dl>
+    </div>
   </div>
-</header>
+
+  <figure class="hero-visual">
+    <div class="hv-scale">
+      <img class="hv-card" src="public/cover/wellness-store-hero.webp" width="1908" height="962"
+           alt="Two phone mockups: the Phase 1 home with its wallet balance and entitlement tiles, and the Phase 2 home with category tabs and a brand banner."
+           fetchpriority="high" decoding="async">
+    </div>
+  </figure>
+</section>
+
 
 <main>
-<!-- ========================================================= 04 PROBLEM -->
-<section id="problem">
-  <div class="shell">
-    <div class="rail"><p class="num">01</p><p class="rail-note">Credit that could not be spent</p></div>
-    <div class="body">
-    <h2>Problem</h2>
-    <p class="statement">
-      A balance members could see, on a category they could not spend it on.
-    </p>
-    <p>
-      Before Wellness Store, the Bajaj Finserv Health app had no commerce surface.
-      Wallet credit was scoped to appointments and lab tests, so the balance sat in an
-      app with nothing to spend it on, an affordance promising what the product could
-      not deliver. For supplements, devices and memberships, members went elsewhere.
-    </p>
-    <p>
-      Underneath the business problem sat a design one: give the balance somewhere to
-      go, and make the entitlement legible at the moment it changes a price.
-    </p>
+
+<!-- ============================================================ OVERVIEW -->
+<section id="overview" data-title="Overview">
+  <div class="wrap">
+    <p class="sec-idx" data-reveal><span>01</span>Overview</p>
+    <h2 class="sec-title xl" data-reveal>A commerce layer, built inside the app that already existed.</h2>
+
+    <div class="split" data-reveal>
+      <div class="prose">
+        <p class="lead">
+          Wellness Store is Bajaj Finserv Health&rsquo;s commerce layer. It holds four
+          product types in one architecture.
+        </p>
+        <p>
+          Vendor-integrated supplements and smart devices alongside in-house programs and
+          subscriptions. Four content models, one card system, one checkout, on a
+          healthcare design system that had never sold anything.
+        </p>
+      </div>
+      <div class="prose">
+        <p>
+          The primary user arrives through their employer&rsquo;s Health Prime Plan carrying
+          preloaded <span class="wallet">wallet credit</span>. That set the constraint every
+          screen answers to: the balance, and the price it changes, stay legible from the
+          first tile to the confirmation.
+        </p>
+      </div>
+    </div>
+
+    <div class="types" data-reveal>
+      <p class="label">Four product types, one storefront</p>
+      <ul>
+        <li><span class="t-src">Vendor APIs</span><span class="t-name">Supplements</span></li>
+        <li><span class="t-src">Vendor APIs</span><span class="t-name">Smart devices</span></li>
+        <li><span class="t-src">Internal CMS</span><span class="t-name">Programs</span></li>
+        <li><span class="t-src">Internal CMS</span><span class="t-name">Subscriptions</span></li>
+      </ul>
     </div>
   </div>
 </section>
 
-<!-- ================================================== 07 KEY CHALLENGES -->
-<section id="challenges">
-  <div class="shell">
-    <div class="rail"><p class="num">02</p><p class="rail-note">Two constraints</p></div>
-    <div class="body">
-    <h2>Key challenges</h2>
-    <p>Two constraints shaped everything that followed.</p>
-    </div>
-  </div>
 
-  <div class="breakout">
-    <div class="chal-blocks">
-      <div class="chal">
-        <p class="chal-n">01</p>
-        <p class="chal-name">No platform, no commerce patterns</p>
-        <p class="chal-text">Nowhere to sell nutra supplements, health devices, memberships or programs. The healthcare design system had no PDP, cart or checkout, and no vocabulary for quick-commerce or traditional e-commerce. Iterated toward commerce, not forked into a second system.</p>
-      </div>
-      <div class="chal">
-        <p class="chal-n">02</p>
-        <p class="chal-name">An ASAP go-live</p>
-        <p class="chal-text">Reuse over custom builds. Vouchers as a fast-follow, not an MVP blocker. Personalization deferred. Designing to what engineering could ship was the job, not a compromise.</p>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- ============================================================= MY ROLE -->
+<section id="role" data-title="My role">
+  <div class="wrap">
+    <p class="sec-idx" data-reveal><span>02</span>My role</p>
+    <h2 class="sec-title" data-reveal>The design owned end to end. The roadmap calls shared with the PM.</h2>
 
-<!-- ========================================================= 03 MY ROLE -->
-<section id="role">
-  <div class="shell">
-    <div class="rail"><p class="num">03</p><p class="rail-note">Shared roadmap, owned design</p></div>
-    <div class="body">
-    <h2>My role</h2>
-    <dl class="stack">
-      <div>
-        <dt>Ownership</dt>
-        <dd>End-to-end UX and UI: IA, flows, wireframes, shipped interface.</dd>
+    <div class="role-grid" data-reveal>
+      <div class="role-card">
+        <p class="label">Ownership</p>
+        <p class="role-text">End-to-end UX and UI: IA, flows, wireframes, shipped interface.</p>
       </div>
-      <div>
-        <dt>Team</dt>
-        <dd>A PM, engineering, two vendor integration partners.</dd>
-      </div>
-      <div>
-        <dt>Contribution</dt>
-        <dd>Traced the mid-year softening to product imagery and proposed Brand Pages.
-          Roadmap calls were shared with the PM; my part was the design argument.</dd>
-      </div>
-      <div>
-        <dt>Out of scope</dt>
-        <dd>Admin and operations tooling.</dd>
-      </div>
-    </dl>
-    </div>
-  </div>
-</section>
-
-<!-- ======================================================== 02 OVERVIEW -->
-<section id="overview">
-  <div class="shell">
-    <div class="rail"><p class="num">04</p><p class="rail-note">Four product types, one storefront</p></div>
-    <div class="body">
-    <h2>Overview</h2>
-    <p class="statement">
-      Wellness Store is Bajaj Finserv Health&rsquo;s commerce layer, built inside the app
-      that already existed.
-    </p>
-    <p>
-      It holds four product types in one architecture: vendor-integrated supplements and
-      smart devices alongside in-house programs and subscriptions. Four content models,
-      one card system, one checkout, on a healthcare design system that had never sold
-      anything.
-    </p>
-    <p>
-      The primary user arrives through their employer&rsquo;s Health Prime Plan carrying
-      preloaded <span class="wallet">wallet credit</span>. That set the constraint every
-      screen answers to: the balance, and the price it changes, stay legible from the
-      first tile to the confirmation.
-    </p>
-    </div>
-  </div>
-
-</section>
-
-<!-- =========================================================== 05 GOALS -->
-<section id="goals">
-  <div class="shell">
-    <div class="rail"><p class="num">05</p><p class="rail-note">Three levels</p></div>
-    <div class="body">
-    <h2>Goals</h2>
-    <p>Three levels, each answering the one above it.</p>
-    </div>
-  </div>
-
-  <div class="breakout">
-    <div class="goal-blocks">
-      <div class="goal">
-        <p class="goal-level">Business</p>
-        <p class="goal-text">Recapture wellness spend through the B2B2C wallet.</p>
-      </div>
-      <div class="goal">
-        <p class="goal-level">Product</p>
-        <p class="goal-text">Carry the whole catalog through one familiar flow.</p>
-      </div>
-      <div class="goal">
-        <p class="goal-level">Design</p>
-        <ol class="goal-list">
-          <li>Spend no interaction budget on novelty. Jacob&rsquo;s Law: a marketplace PDP,
-            a standard checkout, so recognition does the work.</li>
-          <li>Resolve four content models into one IA and one card system, so browsing
-            never asks which kind of thing this is.</li>
-          <li>Keep <span class="wallet">the wallet&rsquo;s value</span> present at every
-            decision point, first tile to confirmation.</li>
+      <div class="role-card wide">
+        <p class="label">Contribution</p>
+        <ol class="role-list">
+          <li>Traced the mid-year softening to product imagery and proposed Brand Pages.</li>
+          <li>Roadmap calls were shared with the PM; my part was the design argument.</li>
         </ol>
       </div>
+      <div class="role-card">
+        <p class="label">Team</p>
+        <p class="team"><span class="tn">1</span>PM</p>
+        <p class="team"><span class="tn">2</span>vendor integration partners</p>
+        <p class="role-text">and engineering</p>
+      </div>
+      <div class="role-card">
+        <p class="label">Out of scope</p>
+        <p class="role-text">Admin and operations tooling.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ================================================ 06 WHO WE DESIGNED FOR -->
-<section id="persona">
-  <div class="shell">
-    <div class="rail"><p class="num">06</p><p class="rail-note">Price, trust, too many options</p></div>
-    <div class="body">
-    <h2>Who we designed for</h2>
-    <p>
-      Two audiences, one storefront. Both arrive with an entitlement.
-    </p>
+
+<!-- ========================================================== THE PROBLEM -->
+<section class="dark" id="problem" data-title="The problem">
+  <div class="wrap">
+    <p class="sec-idx" data-reveal><span>03</span>The problem</p>
+    <h2 class="sec-title" data-reveal>A balance members could see, on a category they could not spend it on.</h2>
+
+    <div class="prose" data-reveal>
+      <p class="lead">
+        Before Wellness Store, the Bajaj Finserv Health app had no commerce surface.
+      </p>
+      <p>
+        Wallet credit was scoped to appointments and lab tests, so the balance sat in an
+        app with nothing to spend it on, an affordance promising what the product could
+        not deliver. For supplements, devices and memberships, members went elsewhere.
+      </p>
+    </div>
+
+    <div class="split closing" data-reveal>
+      <p class="pull">Underneath the business problem sat a design one: give the balance somewhere to go, and make the entitlement legible at the moment it changes a price.</p>
     </div>
   </div>
+</section>
 
-  <div class="breakout">
-    <div class="aud-blocks two">
+
+<!-- ====================================================== KEY CHALLENGES -->
+<section id="challenges" data-title="Key challenges">
+  <div class="wrap">
+    <p class="sec-idx" data-reveal><span>04</span>Key challenges</p>
+    <h2 class="sec-title" data-reveal>Two constraints shaped everything that followed.</h2>
+
+    <ol class="blocks two" data-reveal>
+      <li>
+        <p class="b-num">01</p>
+        <h3>No platform, no commerce patterns</h3>
+        <p>Nowhere to sell nutra supplements, health devices, memberships or programs. The healthcare design system had no PDP, cart or checkout, and no vocabulary for quick-commerce or traditional e-commerce. Iterated toward commerce, not forked into a second system.</p>
+      </li>
+      <li>
+        <p class="b-num">02</p>
+        <h3>An ASAP go-live</h3>
+        <p>Reuse over custom builds. Vouchers as a fast-follow, not an MVP blocker. Personalization deferred. Designing to what engineering could ship was the job, not a compromise.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+
+<!-- =============================================================== GOALS -->
+<section id="goals" data-title="Goals">
+  <div class="wrap">
+    <p class="sec-idx" data-reveal><span>05</span>Goals</p>
+    <h2 class="sec-title" data-reveal>Three levels, each answering the one above it.</h2>
+
+    <ol class="levels" data-reveal>
+      <li>
+        <p class="label">Business</p>
+        <p class="lv-text">Recapture wellness spend through the B2B2C wallet.</p>
+      </li>
+      <li>
+        <p class="label">Product</p>
+        <p class="lv-text">Carry the whole catalog through one familiar flow.</p>
+      </li>
+      <li>
+        <p class="label">Design</p>
+        <ol class="role-list">
+          <li>Spend no interaction budget on novelty. Jacob&rsquo;s Law: a marketplace PDP, a standard checkout, so recognition does the work.</li>
+          <li>Resolve four content models into one IA and one card system, so browsing never asks which kind of thing this is.</li>
+          <li>Keep <span class="wallet">the wallet&rsquo;s value</span> present at every decision point, first tile to confirmation.</li>
+        </ol>
+      </li>
+    </ol>
+  </div>
+</section>
+
+
+<!-- ================================================= WHO WE DESIGNED FOR -->
+<section id="persona" data-title="Who we designed for">
+  <div class="wrap">
+    <p class="sec-idx" data-reveal><span>06</span>Who we designed for</p>
+    <h2 class="sec-title" data-reveal>Two audiences, one storefront. Both arrive with an entitlement.</h2>
+
+    <div class="audience" data-reveal>
       <div class="aud">
-        <p class="aud-name">B2B2C members</p>
-        <p class="aud-text">Employees on a Health Prime plan their employer bought.
-          They arrive with preloaded <span class="wallet">wallet credit</span> and
-          exclusive pricing. The primary audience.</p>
+        <p class="label">Primary</p>
+        <h3>B2B2C members</h3>
+        <p>Employees on a Health Prime plan their employer bought. They arrive with preloaded <span class="wallet">wallet credit</span> and exclusive pricing. The primary audience.</p>
       </div>
       <div class="aud">
-        <p class="aud-name">GMC groups</p>
-        <p class="aud-text">Members covered under Group Medical Coverage, reached
-          through the same plan structure.</p>
+        <p class="label">Also</p>
+        <h3>GMC groups</h3>
+        <p>Members covered under Group Medical Coverage, reached through the same plan structure.</p>
       </div>
     </div>
-    <p class="fig-note measure-in">Three barriers stood in the way. Each was assigned to
-      a design objective rather than left as background colour.</p>
-  </div>
 
-  <div class="breakout">
-    <div class="table-scroll">
-      <table class="grid-table">
-        <caption>Barriers mapped to design objectives</caption>
+    <p class="sub" data-reveal>Three barriers stood in the way. Each was assigned to a design objective rather than left as background colour.</p>
+
+    <div class="table-wrap" data-reveal>
+      <table class="landscape barriers">
+        <caption class="sr-only">Barriers mapped to design objectives</caption>
         <thead>
           <tr><th scope="col">Barrier</th><th scope="col">Design objective</th></tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">Too many options</th>
-            <td>Hold all four product types in one IA and one card system, so breadth
-              never becomes noise.</td>
-          </tr>
-          <tr>
-            <th scope="row">Trust</th>
-            <td>Lean on patterns members already know, so nothing about the mechanics
-              of buying asks to be learned.</td>
-          </tr>
-          <tr>
-            <th scope="row">Price</th>
-            <td>Keep <span class="wallet">the wallet's value</span> visible from home
-              through confirmation, so the discount is never a surprise at the end.</td>
-          </tr>
+          <tr><th scope="row">Too many options</th><td data-label="Design objective">Hold all four product types in one IA and one card system, so breadth never becomes noise.</td></tr>
+          <tr><th scope="row">Trust</th><td data-label="Design objective">Lean on patterns members already know, so nothing about the mechanics of buying asks to be learned.</td></tr>
+          <tr><th scope="row">Price</th><td data-label="Design objective">Keep <span class="wallet">the wallet&rsquo;s value</span> visible from home through confirmation, so the discount is never a surprise at the end.</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 </section>
 
-<!-- ======================================================== 09 APPROACH -->
-<section id="approach">
-  <div class="shell">
-    <div class="rail"><p class="num">07</p><p class="rail-note">Brief to shipped, one loop</p></div>
-    <div class="body">
-    <h2>Approach</h2>
-    </div>
-  </div>
 
-  <div class="breakout">
-    <ol class="flow-blocks">
-      <li class="fb">
-        <span class="fb-n">01</span>
-        <span class="fb-name">Problem statement</span>
-        <span class="fb-note">A balance with nothing to spend it on</span>
-      </li>
-      <li class="fb">
-        <span class="fb-n">02</span>
-        <span class="fb-name">Secondary research</span>
-        <span class="fb-note">Traditional e-commerce and quick-commerce</span>
-      </li>
-      <li class="fb">
-        <span class="fb-n">03</span>
-        <span class="fb-name">Persona</span>
-        <span class="fb-note">One member, three barriers</span>
-      </li>
-      <li class="fb">
-        <span class="fb-n">04</span>
-        <span class="fb-name">Scenarios and edge cases</span>
-        <span class="fb-note">Empty, out of stock, delayed, no wallet</span>
-      </li>
-      <li class="fb loop">
-        <span class="fb-n">05</span>
-        <span class="fb-name">Design and iterate</span>
-        <span class="fb-note">Reviewed against business and engineering</span>
-      </li>
-      <li class="fb">
-        <span class="fb-n">06</span>
-        <span class="fb-name">Final output</span>
-        <span class="fb-note">Shipped on the extended design system</span>
-      </li>
+<!-- ============================================================ APPROACH -->
+<section id="approach" data-title="Approach">
+  <div class="wrap">
+    <p class="sec-idx" data-reveal><span>07</span>Approach</p>
+    <h2 class="sec-title" data-reveal>Brief to shipped, in one loop.</h2>
+
+    <ol class="flow6" data-reveal>
+      <li><span class="f6-n">01</span><span class="f6-name">Problem statement</span><span class="f6-note">A balance with nothing to spend it on</span></li>
+      <li><span class="f6-n">02</span><span class="f6-name">Secondary research</span><span class="f6-note">Traditional e-commerce and quick-commerce</span></li>
+      <li><span class="f6-n">03</span><span class="f6-name">Persona</span><span class="f6-note">One member, three barriers</span></li>
+      <li><span class="f6-n">04</span><span class="f6-name">Scenarios and edge cases</span><span class="f6-note">Empty, out of stock, delayed, no wallet</span></li>
+      <li class="loop"><span class="f6-n">05</span><span class="f6-name">Design and iterate</span><span class="f6-note">Reviewed against business and engineering</span></li>
+      <li><span class="f6-n">06</span><span class="f6-name">Final output</span><span class="f6-note">Shipped on the extended design system</span></li>
     </ol>
-    <p class="fig-note measure-in"><span class="loop-mark" aria-hidden="true"></span>
-      Step 05 ran as a loop, not a stage. Feedback went back into the UX before anything
-      was committed to final design.</p>
+    <p class="aside" data-reveal><span class="loop-mark" aria-hidden="true"></span>Step 05 ran as a loop, not a stage. Feedback went back into the UX before anything was committed to final design.</p>
 
-    <figure class="diagram">
+    <figure class="diagram" data-reveal>
+      <p class="label">The architecture</p>
       <div class="diagram-scroll">
         <svg viewBox="0 0 1000 300" role="img" class="dia"
              aria-label="Information architecture: two catalogue sources feed one card system, which resolves into two buying paths. Add to Cart for vendor-API products sold by variant and pack size, Explore Plan for in-house programs sold by tier and duration. Both end in one cart that holds review and payment together. The backend splits wallet credit and creates a sub-order per vendor without surfacing either to the member.">
@@ -327,12 +317,12 @@
             <text class="d-col" x="560" y="24">Two buying paths</text>
             <text class="d-col" x="830" y="24">One cart</text>
 
-            <rect class="d-box" x="10" y="52" width="215" height="82" rx="4"></rect>
+            <rect class="d-box" x="10" y="52" width="215" height="82" rx="6"></rect>
             <text class="d-t" x="26" y="80">Vendor APIs</text>
             <text class="d-s" x="26" y="102">Supplements</text>
             <text class="d-s" x="26" y="120">Smart devices</text>
 
-            <rect class="d-box" x="10" y="166" width="215" height="82" rx="4"></rect>
+            <rect class="d-box" x="10" y="166" width="215" height="82" rx="6"></rect>
             <text class="d-t" x="26" y="194">Internal CMS</text>
             <text class="d-s" x="26" y="216">Programs</text>
             <text class="d-s" x="26" y="234">Subscriptions</text>
@@ -340,7 +330,7 @@
             <path class="d-line" pathLength="1" d="M225,93 H252 Q272,93 272,113 V150 H290"></path>
             <path class="d-line" pathLength="1" d="M225,207 H252 Q272,207 272,187 V150 H290"></path>
 
-            <rect class="d-box d-key" x="290" y="110" width="190" height="80" rx="4"></rect>
+            <rect class="d-box d-key" x="290" y="110" width="190" height="80" rx="6"></rect>
             <text class="d-t" x="306" y="140">One card system</text>
             <text class="d-s" x="306" y="162">Four product types,</text>
             <text class="d-s" x="306" y="180">one visual language</text>
@@ -348,12 +338,12 @@
             <path class="d-line" pathLength="1" d="M480,150 H520 Q532,150 532,130 V96 H560"></path>
             <path class="d-line" pathLength="1" d="M480,150 H520 Q532,150 532,170 V204 H560"></path>
 
-            <rect class="d-box" x="560" y="54" width="200" height="84" rx="4"></rect>
+            <rect class="d-box" x="560" y="54" width="200" height="84" rx="6"></rect>
             <text class="d-cta" x="576" y="80">Add to Cart</text>
             <text class="d-s" x="576" y="102">Variant and pack size,</text>
             <text class="d-s" x="576" y="120">stock from the API</text>
 
-            <rect class="d-box" x="560" y="162" width="200" height="84" rx="4"></rect>
+            <rect class="d-box" x="560" y="162" width="200" height="84" rx="6"></rect>
             <text class="d-cta" x="576" y="188">Explore Plan</text>
             <text class="d-s" x="576" y="210">Tiers and duration,</text>
             <text class="d-s" x="576" y="228">no SKU</text>
@@ -361,7 +351,7 @@
             <path class="d-line" pathLength="1" d="M760,96 H792 Q812,96 812,116 V150 H830"></path>
             <path class="d-line" pathLength="1" d="M760,204 H792 Q812,204 812,184 V150 H830"></path>
 
-            <rect class="d-box d-key" x="830" y="110" width="160" height="80" rx="4"></rect>
+            <rect class="d-box d-key" x="830" y="110" width="160" height="80" rx="6"></rect>
             <text class="d-t" x="846" y="140">One cart</text>
             <text class="d-s" x="846" y="162">Review and payment</text>
             <text class="d-s" x="846" y="180">on one page</text>
@@ -371,19 +361,11 @@
           </g>
         </svg>
       </div>
-      <figcaption>
-        Two catalogue sources, one card system, two buying paths, one cart. The paths
-        differ in what they ask you to choose: a variant and a pack size, or a tier
-        and a duration. They differ too in how they ask for it. The split the backend has to
-        make, proportional wallet credit and a sub-order per vendor, never surfaces.
-      </figcaption>
+      <figcaption class="cap"><span>Fig. 01</span>Two catalogue sources, one card system, two buying paths, one cart. The paths differ in what they ask you to choose: a variant and a pack size, or a tier and a duration. The split the backend has to make, proportional wallet credit and a sub-order per vendor, never surfaces.</figcaption>
     </figure>
-  </div>
 
-
-  <div class="breakout">
-    <h3 class="ia-head">Phase 1 information architecture</h3>
-    <figure class="diagram">
+    <figure class="diagram" data-reveal>
+      <p class="label">Phase 1 information architecture</p>
       <div class="diagram-scroll">
         <svg viewBox="0 0 1000 420" role="img" class="dia ia"
              aria-label="Phase 1 information architecture. A four-tab bar carries Home, Marketplace, My orders and Profile. Home leads to category tiles, deals and a search field. Marketplace leads to a listing, which leads to either a product page or a program page; both lead to the cart, which leads to payment and then order confirmation. My orders leads to order history and tracking. Profile leads to the Store Wallet, saved addresses, claims and help.">
@@ -393,13 +375,13 @@
             <text class="d-col" x="530" y="20">Detail</text>
             <text class="d-col" x="800" y="20">Transaction</text>
 
-            <rect class="d-box d-key" x="10" y="40" width="150" height="46" rx="4"></rect>
+            <rect class="d-box d-key" x="10" y="40" width="150" height="46" rx="6"></rect>
             <text class="d-t" x="24" y="68">Home</text>
-            <rect class="d-box d-key" x="10" y="118" width="150" height="46" rx="4"></rect>
+            <rect class="d-box d-key" x="10" y="118" width="150" height="46" rx="6"></rect>
             <text class="d-t" x="24" y="146">Marketplace</text>
-            <rect class="d-box d-key" x="10" y="238" width="150" height="46" rx="4"></rect>
+            <rect class="d-box d-key" x="10" y="238" width="150" height="46" rx="6"></rect>
             <text class="d-t" x="24" y="266">My orders</text>
-            <rect class="d-box d-key" x="10" y="316" width="150" height="46" rx="4"></rect>
+            <rect class="d-box d-key" x="10" y="316" width="150" height="46" rx="6"></rect>
             <text class="d-t" x="24" y="344">Profile</text>
 
             <path class="d-line" pathLength="1" d="M160,63 H250"></path>
@@ -407,42 +389,42 @@
             <path class="d-line" pathLength="1" d="M160,261 H250"></path>
             <path class="d-line" pathLength="1" d="M160,339 H250"></path>
 
-            <rect class="d-box" x="250" y="40" width="200" height="46" rx="4"></rect>
+            <rect class="d-box" x="250" y="40" width="200" height="46" rx="6"></rect>
             <text class="d-s" x="264" y="60">Wallet balance, tiles,</text>
             <text class="d-s" x="264" y="76">deals, search</text>
 
-            <rect class="d-box" x="250" y="118" width="200" height="46" rx="4"></rect>
+            <rect class="d-box" x="250" y="118" width="200" height="46" rx="6"></rect>
             <text class="d-s" x="264" y="138">Listing, filter chips,</text>
             <text class="d-s" x="264" y="154">search results</text>
 
-            <rect class="d-box" x="250" y="238" width="200" height="46" rx="4"></rect>
+            <rect class="d-box" x="250" y="238" width="200" height="46" rx="6"></rect>
             <text class="d-s" x="264" y="258">Order history,</text>
             <text class="d-s" x="264" y="274">delivered and pending</text>
 
-            <rect class="d-box" x="250" y="316" width="200" height="46" rx="4"></rect>
+            <rect class="d-box" x="250" y="316" width="200" height="46" rx="6"></rect>
             <text class="d-s" x="264" y="336">Store Wallet, addresses,</text>
             <text class="d-s" x="264" y="352">claims, help</text>
 
             <path class="d-line" pathLength="1" d="M450,141 H490 Q502,141 502,125 V96 H530"></path>
             <path class="d-line" pathLength="1" d="M450,141 H490 Q502,141 502,157 V186 H530"></path>
 
-            <rect class="d-box" x="530" y="72" width="190" height="46" rx="4"></rect>
+            <rect class="d-box" x="530" y="72" width="190" height="46" rx="6"></rect>
             <text class="d-t" x="544" y="92">Product page</text>
             <text class="d-s" x="544" y="110">Variant, pack size</text>
 
-            <rect class="d-box" x="530" y="162" width="190" height="46" rx="4"></rect>
+            <rect class="d-box" x="530" y="162" width="190" height="46" rx="6"></rect>
             <text class="d-t" x="544" y="182">Program page</text>
             <text class="d-s" x="544" y="200">Tiers, duration</text>
 
             <path class="d-line" pathLength="1" d="M720,96 H756 Q772,96 772,112 V139 H800"></path>
             <path class="d-line" pathLength="1" d="M720,186 H756 Q772,186 772,170 V139 H800"></path>
 
-            <rect class="d-box d-key" x="800" y="116" width="190" height="46" rx="4"></rect>
+            <rect class="d-box d-key" x="800" y="116" width="190" height="46" rx="6"></rect>
             <text class="d-t" x="814" y="136">Cart</text>
             <text class="d-s" x="814" y="154">Review and payment</text>
 
             <path class="d-line" pathLength="1" d="M895,162 V206"></path>
-            <rect class="d-box" x="800" y="206" width="190" height="46" rx="4"></rect>
+            <rect class="d-box" x="800" y="206" width="190" height="46" rx="6"></rect>
             <text class="d-t" x="814" y="226">Confirmation</text>
             <text class="d-s" x="814" y="244">Tracking, breakdown</text>
 
@@ -451,245 +433,176 @@
           </g>
         </svg>
       </div>
-      <figcaption>
-        Four tabs, one level of category, two detail types, one transaction path. Every
-        screen in the journeys below sits somewhere on this map.
-      </figcaption>
+      <figcaption class="cap"><span>Fig. 02</span>Four tabs, one level of category, two detail types, one transaction path. Every screen in the journeys below sits somewhere on this map.</figcaption>
     </figure>
   </div>
 </section>
 
-<!-- =============================================== SECONDARY RESEARCH -->
-<section id="research">
-  <div class="shell">
-    <div class="rail"><p class="num">08</p><p class="rail-note">Two categories, two questions</p></div>
-    <div class="body">
-    <h2>Secondary research</h2>
-    <p>Two categories, studied for two different questions.</p>
-    </div>
-  </div>
 
-  <div class="breakout">
-    <div class="ref-group">
-      <div class="ref-block">
-        <p class="ref-q">How people find and decide</p>
-        <p class="ref-cat">Traditional e-commerce</p>
-        <div class="ref-slots">
-          <figure class="ref-shot"><img src="public/research/amazon.jpg" alt="Amazon home: a search field with lens and voice input, a grid of category icons, a seasonal campaign row and a deals grid with discount and countdown labels." width="720" height="1561" loading="lazy" decoding="async"><figcaption><span class="ref-name">Amazon</span><span class="ref-call">A category grid, not a carousel. That fixed the fold: entitlement tiles above a banner.</span></figcaption></figure>
-          <figure class="ref-shot"><img src="public/research/flipkart.jpg" alt="Flipkart home: service tabs across the top, a search field, a category tab row, a personalised continue-browsing shelf and a suggested-for-you grid with ratings and struck-through prices." width="720" height="1561" loading="lazy" decoding="async"><figcaption><span class="ref-name">Flipkart</span><span class="ref-call">Price, strike-through and rating on the card itself. The member price sits in the same slot.</span></figcaption></figure>
-        </div>
-        <p class="ref-text">The conventions a buyer already knows, and the depth a
-          catalog is expected to have.</p>
+<!-- ================================================== SECONDARY RESEARCH -->
+<section id="research" data-title="Secondary research">
+  <div class="wrap">
+    <p class="sec-idx" data-reveal><span>08</span>Secondary research</p>
+    <h2 class="sec-title" data-reveal>Two categories, studied for two different questions.</h2>
+
+    <div class="ref" data-reveal>
+      <div class="ref-head">
+        <p class="label">Traditional e-commerce</p>
+        <h3>How people find and decide</h3>
+        <p>The conventions a buyer already knows, and the depth a catalog is expected to have.</p>
       </div>
-
-      <div class="ref-block">
-        <p class="ref-q">How people come back</p>
-        <p class="ref-cat">Quick-commerce</p>
-        <div class="ref-slots">
-          <figure class="ref-shot"><img src="public/research/zepto.jpg" alt="Zepto home: a delivery-time promise, store tabs, emoji category tabs, a campaign banner, category tiles each carrying a starting price, a persistent cart pill and a Buy Again tab." width="720" height="1561" loading="lazy" decoding="async"><figcaption><span class="ref-name">Zepto</span><span class="ref-call">A price anchor on every tile and a Buy Again tab. Restocking is a different job from discovery.</span></figcaption></figure>
-          <figure class="ref-shot"><img src="public/research/blinkit.jpg" alt="Blinkit home: a store-proximity banner, a delivery time in minutes set as the largest thing on screen, a search field and a category tab row." width="720" height="1561" loading="lazy" decoding="async"><figcaption><span class="ref-name">Blinkit</span><span class="ref-call">Delivery time as the headline. We had no minutes to promise, so the header carries the balance instead.</span></figcaption></figure>
-          <figure class="ref-shot"><img src="public/research/instamart.jpg" alt="Swiggy Instamart: a mode switcher across Food, Instamart, Dineout and Scenes, a search field, and filter chips for store, offers and speed." width="720" height="1561" loading="lazy" decoding="async"><figcaption><span class="ref-name">Instamart</span><span class="ref-call">One app, several modes behind one switcher. The four product types sit under one card system for the same reason.</span></figcaption></figure>
-        </div>
-        <p class="ref-text">Wellness restocking behaves like groceries. Speed, repeat
-          and a cart that never leaves the screen.</p>
+      <div class="ref-shots">
+        <figure><img src="public/research/amazon.jpg" alt="Amazon home: a search field with lens and voice input, a grid of category icons, a seasonal campaign row and a deals grid with discount and countdown labels." width="720" height="1561" loading="lazy" decoding="async"><figcaption><span class="ref-name">Amazon</span>A category grid, not a carousel. That fixed the fold: entitlement tiles above a banner.</figcaption></figure>
+        <figure><img src="public/research/flipkart.jpg" alt="Flipkart home: service tabs across the top, a search field, a category tab row, a personalised continue-browsing shelf and a suggested-for-you grid with ratings and struck-through prices." width="720" height="1561" loading="lazy" decoding="async"><figcaption><span class="ref-name">Flipkart</span>Price, strike-through and rating on the card itself. The member price sits in the same slot.</figcaption></figure>
       </div>
     </div>
-  </div>
 
-  <div class="measure">
-    <p class="statement small">
-      Wellness needs both: enough structure to choose a health program, enough habit to
-      restock a protein tub.
-    </p>
+    <div class="ref" data-reveal>
+      <div class="ref-head">
+        <p class="label">Quick-commerce</p>
+        <h3>How people come back</h3>
+        <p>Wellness restocking behaves like groceries. Speed, repeat and a cart that never leaves the screen.</p>
+      </div>
+      <div class="ref-shots three">
+        <figure><img src="public/research/zepto.jpg" alt="Zepto home: a delivery-time promise, store tabs, emoji category tabs, a campaign banner, category tiles each carrying a starting price, a persistent cart pill and a Buy Again tab." width="720" height="1561" loading="lazy" decoding="async"><figcaption><span class="ref-name">Zepto</span>A price anchor on every tile and a Buy Again tab. Restocking is a different job from discovery.</figcaption></figure>
+        <figure><img src="public/research/blinkit.jpg" alt="Blinkit home: a store-proximity banner, a delivery time in minutes set as the largest thing on screen, a search field and a category tab row." width="720" height="1561" loading="lazy" decoding="async"><figcaption><span class="ref-name">Blinkit</span>Delivery time as the headline. We had no minutes to promise, so the header carries the balance instead.</figcaption></figure>
+        <figure><img src="public/research/instamart.jpg" alt="Swiggy Instamart: a mode switcher across Food, Instamart, Dineout and Scenes, a search field, and filter chips for store, offers and speed." width="720" height="1561" loading="lazy" decoding="async"><figcaption><span class="ref-name">Instamart</span>One app, several modes behind one switcher. The four product types sit under one card system for the same reason.</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="split closing" data-reveal>
+      <p class="pull">Wellness needs both: enough structure to choose a health program, enough habit to restock a protein tub.</p>
+    </div>
   </div>
 </section>
 
-<!-- ============================================ 10 KEY DESIGN DECISIONS -->
-<section id="decisions">
-  <div class="shell">
-    <div class="rail"><p class="num">09</p><p class="rail-note">Three calls, three consequences</p></div>
-    <div class="body">
-    <h2>Key design decisions</h2>
-    </div>
-  </div>
 
-  <div class="breakout">
-    <div class="dec-grid">
+<!-- ================================================ KEY DESIGN DECISIONS -->
+<section id="decisions" data-title="Key design decisions">
+  <div class="wrap">
+    <p class="sec-idx" data-reveal><span>09</span>Key design decisions</p>
+    <h2 class="sec-title" data-reveal>Three calls, three consequences.</h2>
 
-      <div class="dec">
-        <figure class="dec-shot">
-          <div class="dec-pair">
-            <img src="public/screens/pdp-product.png" alt="Product page: variant swatches above a unit selector giving each pack size its own price and stock state." width="720" height="1560" loading="lazy" decoding="async">
-            <img src="public/screens/pdp-program.png" alt="Program page: a Select Membership Package tab row above a What&apos;s included checklist." width="720" height="1560" loading="lazy" decoding="async">
-          </div>
-        </figure>
-        <p class="dec-name">One store, two buying models</p>
-        <p class="dec-text">Products come from vendor APIs, programs from an internal CMS.
-          One card system over both. The split shows below the fold: variant and pack size
-          on one, duration and inclusions on the other.</p>
-      </div>
-
-      <div class="dec">
-        <figure class="dec-shot">
+    <div class="decs" data-reveal>
+      <article class="dec">
+        <div class="dec-media pair">
+          <img src="public/screens/pdp-product.png" alt="Product page: variant swatches above a unit selector giving each pack size its own price and stock state." width="720" height="1560" loading="lazy" decoding="async">
+          <img src="public/screens/pdp-program.png" alt="Program page: a Select Membership Package tab row above a What&apos;s included checklist." width="720" height="1560" loading="lazy" decoding="async">
+        </div>
+        <p class="label">01</p>
+        <h3>One store, two buying models</h3>
+        <p>Products come from vendor APIs, programs from an internal CMS. One card system over both. The split shows below the fold: variant and pack size on one, duration and inclusions on the other.</p>
+      </article>
+      <article class="dec">
+        <div class="dec-media">
           <img src="public/screens/journeys/cart.png" alt="Cart: one payable amount over vendor line items with quantity steppers." width="720" height="1560" loading="lazy" decoding="async">
-        </figure>
-        <p class="dec-name">Unified checkout over a split backend</p>
-        <p class="dec-text">One cart holds several vendors. The member sees one order; the
-          backend splits <span class="wallet">wallet credit</span> proportionally into
-          per-vendor sub-orders.</p>
-      </div>
-
-      <div class="dec">
-        <figure class="dec-shot">
+        </div>
+        <p class="label">02</p>
+        <h3>Unified checkout over a split backend</h3>
+        <p>One cart holds several vendors. The member sees one order; the backend splits <span class="wallet">wallet credit</span> proportionally into per-vendor sub-orders.</p>
+      </article>
+      <article class="dec">
+        <div class="dec-media">
           <img src="public/screens/wallet-flow/3-store-wallet.png" alt="Store Wallet: available balance against total balance, total saved, and a dated transaction list." width="360" height="810" loading="lazy" decoding="async">
+        </div>
+        <p class="label">03</p>
+        <h3>Wallet-first, everywhere</h3>
+        <p>Balance in the header, member price on the card, each deduction itemised at payment. Behind them a Store Wallet screen: balance against allocation, total saved, every transaction. An account the member can audit, not a discount that appears at the end.</p>
+      </article>
+    </div>
+
+    <div class="bts" data-reveal>
+      <p class="label">Behind the scenes</p>
+      <div class="bts-grid">
+        <figure>
+          <img src="public/bts/prototype-wiring.png" alt="A Figma prototype view of the Phase 2 flow: frames laid out in a row with connection arrows running between them, several crossing back on themselves." width="1350" height="810" loading="lazy" decoding="async">
+          <figcaption class="cap">Prototype wiring for the Phase 2 flow. Every arrow is a route someone has to be able to take, and every one that crosses back is a dead end found before it cost anything.</figcaption>
         </figure>
-        <p class="dec-name">Wallet-first, everywhere</p>
-        <p class="dec-text">Balance in the header, member price on the card, each deduction
-          itemised at payment. Behind them a Store Wallet screen: balance against
-          allocation, total saved, every transaction. An account the member can audit,
-          not a discount that appears at the end.</p>
+        <figure>
+          <img src="public/bts/desk.jpg" alt="A desk: a monitor running Figma, a laptop beside it, and an open notebook of hand-drawn wireframes with a pen across the page." width="1050" height="1400" loading="lazy" decoding="async">
+          <figcaption class="cap">The fold gets settled on paper first. It is cheaper to redraw a hierarchy in a notebook than to argue with it in Figma.</figcaption>
+        </figure>
       </div>
-
+      <p class="note-line">Most of the work was smaller than a decision. Choosing a stepper over a chip. Extending a healthcare component instead of drawing a new one. Moving a balance eight pixels so it clears the wordmark. The three calls above are what survived; this is the middle they came out of.</p>
     </div>
-  </div>
-
-  <div class="breakout bts">
-    <h3 class="ia-head">Behind the scenes</h3>
-    <div class="bts-grid">
-      <figure class="bts-wide">
-        <img src="public/bts/prototype-wiring.png" alt="A Figma prototype view of the Phase 2 flow: frames laid out in a row with connection arrows running between them, several crossing back on themselves." width="1350" height="810" loading="lazy" decoding="async">
-        <figcaption>Prototype wiring for the Phase 2 flow. Every arrow is a route someone
-          has to be able to take, and every one that crosses back is a dead end found
-          before it cost anything.</figcaption>
-      </figure>
-      <figure class="bts-tall">
-        <img src="public/bts/desk.jpg" alt="A desk: a monitor running Figma, a laptop beside it, and an open notebook of hand-drawn wireframes with a pen across the page." width="1050" height="1400" loading="lazy" decoding="async">
-        <figcaption>The fold gets settled on paper first. It is cheaper to redraw a
-          hierarchy in a notebook than to argue with it in Figma.</figcaption>
-      </figure>
-    </div>
-    <p class="fig-note measure-in">Most of the work was smaller than a decision. Choosing
-      a stepper over a chip. Extending a healthcare component instead of drawing a new
-      one. Moving a balance eight pixels so it clears the wordmark. The three calls above
-      are what survived; this is the middle they came out of.</p>
   </div>
 </section>
 
-<!-- ========================================================== 12 PHASES -->
-<section id="phases">
-  <div class="shell">
-    <div class="rail"><p class="num">10</p><p class="rail-note">Two live, one in development</p></div>
-    <div class="body">
-    <h2>Phases</h2>
-    </div>
-  </div>
 
-  <div class="breakout">
-    <ol class="phases">
+<!-- ============================================================== PHASES -->
+<section id="phases" data-title="Phases">
+  <div class="wrap">
+    <p class="sec-idx" data-reveal><span>10</span>Phases</p>
+    <h2 class="sec-title" data-reveal>Two live, one in development.</h2>
+
+    <ol class="phases" data-reveal>
       <li>
-        <p class="phase-head"><span class="phase-n">Phase 1</span> Marketplace
-          <span class="chip live">Live</span></p>
-        <p>
-          <span class="wallet">Wallet balance</span> in the header, entitlement tiles
-          above the fold, four product types under one card system.
-        </p>
-        <p class="decision">
-          The barrier was too many options, not too little inspiration, so the fold
-          leads with entitlements, not a banner carousel.
-        </p>
+        <p class="ph-head"><span class="ph-n">Phase 1</span><span class="chip is-live">Live</span></p>
+        <h3>Marketplace</h3>
+        <p><span class="wallet">Wallet balance</span> in the header, entitlement tiles above the fold, four product types under one card system.</p>
+        <p class="ph-decision">The barrier was too many options, not too little inspiration, so the fold leads with entitlements, not a banner carousel.</p>
       </li>
       <li>
-        <p class="phase-head"><span class="phase-n">Phase 1.2</span> Vouchers
-          <span class="chip live">Live</span></p>
-        <p>
-          Tiered vouchers bought with <span class="wallet">wallet credit</span>. The PDP
-          swaps the quantity stepper for denomination chips. The thing being chosen is
-          a value, not a count.
-        </p>
-        <p class="decision">
-          Adapt a gift-card pattern people already recognise, so the value is legible at
-          a glance.
-        </p>
+        <p class="ph-head"><span class="ph-n">Phase 1.2</span><span class="chip is-live">Live</span></p>
+        <h3>Vouchers</h3>
+        <p>Tiered vouchers bought with <span class="wallet">wallet credit</span>. The PDP swaps the quantity stepper for denomination chips. The thing being chosen is a value, not a count.</p>
+        <p class="ph-decision">Adapt a gift-card pattern people already recognise, so the value is legible at a glance.</p>
       </li>
       <li>
-        <p class="phase-head"><span class="phase-n">Phase 2</span> Rebuilding trust
-          <span class="chip">In development</span></p>
-        <p>
-          Brand Pages: hero banners and curated merchandising the design controls,
-          replacing a trust signal it doesn't. The diagnosis behind it, and the screens,
-          are in the journey that follows.
-        </p>
+        <p class="ph-head"><span class="ph-n">Phase 2</span><span class="chip">In development</span></p>
+        <h3>Rebuilding trust</h3>
+        <p>Brand Pages: hero banners and curated merchandising the design controls, replacing a trust signal it doesn&rsquo;t. The diagnosis behind it, and the screens, are in the journey that follows.</p>
       </li>
     </ol>
   </div>
 </section>
 
-<!-- ======================================================= 12 JOURNEYS -->
-<section id="journeys">
-  <div class="shell">
-    <div class="rail"><p class="num">11</p><p class="rail-note">Three flows, three jobs</p></div>
-    <div class="body">
-    <h2>Journeys</h2>
-    </div>
-  </div>
 
-  <div class="breakout phase-band">
-    <p class="phase-band-label"><span class="live-dot" aria-hidden="true"></span>Phase 1
-      and 1.2 <span class="chip live">Live</span></p>
-  </div>
+<!-- ============================================================ JOURNEYS -->
+<section id="journeys" data-title="Journeys">
+  <div class="wrap">
+    <p class="sec-idx" data-reveal><span>11</span>Journeys</p>
+    <h2 class="sec-title" data-reveal>Three flows, three jobs.</h2>
+    <p class="band" data-reveal><span class="live-dot" aria-hidden="true"></span>Phase 1 and 1.2 <span class="chip is-live">Live</span></p>
 
-  <div class="breakout journey">
-    <p class="j-head"><span class="j-name">Buying journey</span><span class="phase-tag">Phase 1</span></p>
-    <ol class="spine j-spine">
-        <li><span class="sp-n">1</span><span class="sp-t">Home</span></li>
-        <li><span class="sp-n">2</span><span class="sp-t">Browse</span></li>
-        <li><span class="sp-n">3</span><span class="sp-t">PDP</span></li>
-        <li><span class="sp-n">4</span><span class="sp-t">Cart</span></li>
-        <li><span class="sp-n">5</span><span class="sp-t">Checkout</span></li>
-        <li><span class="sp-n">6</span><span class="sp-t">Confirmation</span></li>
-    </ol>
-    <div class="j-scroll"><div class="j-strip">
+    <!-- Buying -->
+    <article class="journey" data-reveal>
+      <div class="j-top">
+        <h3 class="j-name">Buying journey</h3>
+        <ol class="spine"><li>Home</li><li>Browse</li><li>PDP</li><li>Cart</li><li>Checkout</li><li>Confirmation</li></ol>
+      </div>
+      <div class="strip" tabindex="0" aria-label="Buying journey screens, scrollable">
         <figure><img src="public/screens/journeys/home.png" alt="Home: wallet balance in the header above entitlement tiles." width="720" height="1560" loading="lazy" decoding="async"><figcaption>Home</figcaption></figure>
         <figure><img src="public/screens/journeys/listing.png" alt="Listing: filter chips above product cards." width="720" height="1560" loading="lazy" decoding="async"><figcaption>Browse</figcaption></figure>
         <figure><img src="public/screens/journeys/cart.png" alt="Cart: one payable amount over vendor line items." width="720" height="1560" loading="lazy" decoding="async"><figcaption>Cart</figcaption></figure>
         <figure><img src="public/screens/journeys/checkout.png" alt="Checkout: the combinable payment method list." width="720" height="1560" loading="lazy" decoding="async"><figcaption>Checkout</figcaption></figure>
         <figure><img src="public/screens/journeys/confirmation.png" alt="Confirmation: order placed, with tracking and a payment breakdown." width="720" height="1560" loading="lazy" decoding="async"><figcaption>Confirmation</figcaption></figure>
-    </div></div>
-      <dl class="fs-fields j-fields">
-        <div><dt>Designed</dt><dd><ul class="fs-covered">
-          <li>Four fixed entry tiles</li>
-          <li>One card system across product types</li>
-          <li>Two PDP models</li>
-          <li>Multi-vendor single cart</li>
-          <li>Combinable payment methods</li>
-        </ul></dd></div>
-        <div><dt>Decision</dt><dd>Same shell, two buying models. Add to Cart for products, Explore Plan for programs</dd></div>
-        <div><dt>Achieved</dt><dd>A glucometer and a 90-day program coexist without the store feeling split</dd></div>
-      </dl>
-
-    <div class="j-pair-wrap">
-      <div class="j-pair">
-        <figure><img src="public/screens/pdp-product.png" alt="Product page: variant swatches above a unit selector giving each pack size its own price and stock state." width="720" height="1560" loading="lazy" decoding="async"><figcaption>Product PDP, Add to Cart</figcaption></figure>
-        <figure><img src="public/screens/pdp-program.png" alt="Program page: a Select Membership Package tab row above a What&apos;s included checklist." width="720" height="1560" loading="lazy" decoding="async"><figcaption>Program PDP, Explore Plan</figcaption></figure>
       </div>
-      <p class="fig-note">The two PDP models, side by side. One asks which variant and
-        which pack size; the other asks how long, then lists what that buys.</p>
-      <p class="fig-note"><span class="sub-flow">Sub-flow</span> Voucher purchase,
-        Phase 1.2: denomination replaces quantity, a structurally different PDP
-        feeding the same cart and checkout.</p>
-    </div>
-  </div>
+      <dl class="fields">
+        <div><dt>Designed</dt><dd><ul class="covered"><li>Four fixed entry tiles</li><li>One card system across product types</li><li>Two PDP models</li><li>Multi-vendor single cart</li><li>Combinable payment methods</li></ul></dd></div>
+        <div><dt>Decision</dt><dd>Same shell, two buying models. Add to Cart for products, Explore Plan for programs.</dd></div>
+        <div><dt>Achieved</dt><dd>A glucometer and a 90-day program coexist without the store feeling split.</dd></div>
+      </dl>
+      <div class="j-pair">
+        <div class="j-pair-shots">
+          <figure><img src="public/screens/pdp-product.png" alt="Product page: variant swatches above a unit selector giving each pack size its own price and stock state." width="720" height="1560" loading="lazy" decoding="async"><figcaption>Product PDP, Add to Cart</figcaption></figure>
+          <figure><img src="public/screens/pdp-program.png" alt="Program page: a Select Membership Package tab row above a What&apos;s included checklist." width="720" height="1560" loading="lazy" decoding="async"><figcaption>Program PDP, Explore Plan</figcaption></figure>
+        </div>
+        <div class="prose">
+          <p class="lead">The two PDP models, side by side.</p>
+          <p>One asks which variant and which pack size; the other asks how long, then lists what that buys.</p>
+          <p><span class="tag">Sub-flow</span> Voucher purchase, Phase 1.2: denomination replaces quantity, a structurally different PDP feeding the same cart and checkout.</p>
+        </div>
+      </div>
+    </article>
 
-  <div class="breakout journey">
-    <p class="j-head"><span class="j-name">Wallet journey</span><span class="phase-tag">Phase 1</span></p>
-    <ol class="spine j-spine wallet-spine">
-        <li><span class="sp-n">1</span><span class="sp-t">Balance in header</span></li>
-        <li><span class="sp-n">2</span><span class="sp-t">Applied at card level</span></li>
-        <li><span class="sp-n">3</span><span class="sp-t">Previewed in cart</span></li>
-        <li><span class="sp-n">4</span><span class="sp-t">Combined at checkout</span></li>
-        <li><span class="sp-n">5</span><span class="sp-t">Visible on confirmation</span></li>
-    </ol>
-    <div class="j-scroll"><div class="j-strip">
+    <!-- Wallet -->
+    <article class="journey" data-reveal>
+      <div class="j-top">
+        <h3 class="j-name">Wallet journey</h3>
+        <ol class="spine is-wallet"><li>Balance in header</li><li>Applied at card level</li><li>Previewed in cart</li><li>Combined at checkout</li><li>Visible on confirmation</li></ol>
+      </div>
+      <div class="strip" tabindex="0" aria-label="Wallet journey screens, scrollable">
         <figure><img src="public/screens/wallet-flow/1-home.png" alt="Home: balance in the header." width="360" height="810" loading="lazy" decoding="async"><figcaption>Header</figcaption></figure>
         <figure><img src="public/screens/wallet-flow/2-profile.png" alt="Profile: the My Wellness Wallet entry." width="360" height="810" loading="lazy" decoding="async"><figcaption>Profile</figcaption></figure>
         <figure><img src="public/screens/wallet-flow/3-store-wallet.png" alt="Store Wallet: balance against allocation, with a transaction list." width="360" height="810" loading="lazy" decoding="async"><figcaption>Store Wallet</figcaption></figure>
@@ -697,526 +610,293 @@
         <figure><img src="public/screens/wallet-flow/5-search.png" alt="Search: member pricing carried into frequently bought." width="360" height="810" loading="lazy" decoding="async"><figcaption>Search</figcaption></figure>
         <figure><img src="public/screens/wallet-flow/6-product.png" alt="Product page: member price beside the MRP." width="360" height="810" loading="lazy" decoding="async"><figcaption>Product page</figcaption></figure>
         <figure><img src="public/screens/wallet-flow/7-cart.png" alt="Cart: applied against the payable amount." width="360" height="810" loading="lazy" decoding="async"><figcaption>Cart</figcaption></figure>
-    </div></div>
-      <dl class="fs-fields j-fields">
-        <div><dt>Designed</dt><dd><ul class="fs-covered">
-          <li>Persistent header balance</li>
-          <li>Member pricing on cards</li>
-          <li>Wallet, Health Coins and UPI combinable</li>
-          <li>Live total recalculation</li>
-          <li>Proportional split across vendors</li>
-        </ul></dd></div>
-        <div><dt>Decision</dt><dd>Wallet value stays visible end to end, not revealed at checkout</dd></div>
-        <div><dt>Achieved</dt><dd>Reframes the visit from &ldquo;should I spend&rdquo; to &ldquo;I have credit to use&rdquo;</dd></div>
+      </div>
+      <dl class="fields">
+        <div><dt>Designed</dt><dd><ul class="covered"><li>Persistent header balance</li><li>Member pricing on cards</li><li>Wallet, Health Coins and UPI combinable</li><li>Live total recalculation</li><li>Proportional split across vendors</li></ul></dd></div>
+        <div><dt>Decision</dt><dd>Wallet value stays visible end to end, not revealed at checkout.</dd></div>
+        <div><dt>Achieved</dt><dd>Reframes the visit from &ldquo;should I spend&rdquo; to &ldquo;I have credit to use&rdquo;.</dd></div>
       </dl>
+      <div class="j-card">
+        <figure>
+          <img src="public/screens/wallet-flow/card-detail.png" alt="A listing card carrying a Wallet Applicable label between the pack size and the price." width="320" height="148" loading="lazy" decoding="async">
+        </figure>
+        <div class="prose">
+          <p>The card, close up. Two treatments were drawn: a plain <em>Wallet Applicable</em> flag, and the member price stated outright.</p>
+          <p class="caveat"><span class="wallet">The wallet</span> is the B2B2C differentiator and the spine of the store&rsquo;s value proposition. It launched late in Phase 1 and remains early-volume, a strategic bet rather than a proven driver.</p>
+        </div>
+      </div>
+    </article>
 
-      <figure class="j-card">
-        <img src="public/screens/wallet-flow/card-detail.png" alt="A listing card carrying a Wallet Applicable label between the pack size and the price." width="320" height="148" loading="lazy" decoding="async">
-        <figcaption>The card, close up. Two treatments were drawn: a plain <em>Wallet Applicable</em> flag, and the member price stated outright.</figcaption>
-      </figure>
-    <p class="fig-note measure-in caveat-inline">
-      <span class="wallet">The wallet</span> is the B2B2C differentiator and the spine of
-      the store&rsquo;s value proposition. It launched late in Phase 1 and remains early-volume, a strategic bet rather than a proven driver.
-    </p>
-  </div>
-
-  <div class="breakout journey">
-    <p class="j-head"><span class="j-name">Order and post-purchase journey</span><span class="phase-tag">Phase 1</span></p>
-    <ol class="spine j-spine">
-        <li><span class="sp-n">1</span><span class="sp-t">Confirmation</span></li>
-        <li><span class="sp-n">2</span><span class="sp-t">Order summary</span></li>
-        <li><span class="sp-n">3</span><span class="sp-t">Delivery states</span></li>
-        <li><span class="sp-n">4</span><span class="sp-t">Saved addresses</span></li>
-        <li><span class="sp-n">5</span><span class="sp-t">Reorder</span></li>
-    </ol>
-    <div class="j-scroll"><div class="j-strip">
+    <!-- Order -->
+    <article class="journey" data-reveal>
+      <div class="j-top">
+        <h3 class="j-name">Order and post-purchase journey</h3>
+        <ol class="spine"><li>Confirmation</li><li>Order summary</li><li>Delivery states</li><li>Saved addresses</li><li>Reorder</li></ol>
+      </div>
+      <div class="strip" tabindex="0" aria-label="Order and post-purchase journey screens, scrollable">
         <figure><img src="public/screens/journeys/confirmation.png" alt="Confirmation: order placed, tracking and a payment breakdown." width="720" height="1560" loading="lazy" decoding="async"><figcaption>Confirmation</figcaption></figure>
         <figure><img src="public/screens/journeys/orders.png" alt="My orders: history showing delivered, pending and cancelled states against unified order IDs." width="720" height="1560" loading="lazy" decoding="async"><figcaption>Order history</figcaption></figure>
         <figure><img src="public/screens/journeys/address.png" alt="Saved addresses with an edit and delete action sheet." width="720" height="1560" loading="lazy" decoding="async"><figcaption>Saved addresses</figcaption></figure>
-    </div></div>
-      <dl class="fs-fields j-fields">
-        <div><dt>Designed</dt><dd><ul class="fs-covered">
-          <li>Unified order ID over per-vendor sub-orders</li>
-          <li>Confirmed and delayed states</li>
-          <li>Saved address management</li>
-          <li>Order history</li>
-        </ul></dd></div>
-        <div><dt>Decision</dt><dd>Designed the unhappy path, delayed and not just confirmed</dd></div>
-        <div><dt>Achieved</dt><dd>The vendor split stays invisible through the entire post-purchase experience</dd></div>
+      </div>
+      <dl class="fields">
+        <div><dt>Designed</dt><dd><ul class="covered"><li>Unified order ID over per-vendor sub-orders</li><li>Confirmed and delayed states</li><li>Saved address management</li><li>Order history</li></ul></dd></div>
+        <div><dt>Decision</dt><dd>Designed the unhappy path, delayed and not just confirmed.</dd></div>
+        <div><dt>Achieved</dt><dd>The vendor split stays invisible through the entire post-purchase experience.</dd></div>
       </dl>
-
+    </article>
   </div>
+</section>
 
 
-  <div class="breakout results-band">
-    <p class="phase-band-label">What Phase 1 and 1.2 did, July 2025 to June 2026</p>
-  </div>
-  <div class="breakout">
-    <div class="headline-figures">
-      <div>
-        <p class="hf-value">~&#8377;66L</p>
-        <p class="hf-label">Revenue in year one</p>
+<!-- ============================================================= RESULTS -->
+<section class="dark" id="results" data-title="Results">
+  <div class="wrap">
+    <p class="sec-idx" data-reveal><span>12</span>Results</p>
+    <h2 class="sec-title" data-reveal>What Phase 1 and 1.2 did, July 2025 to June 2026.</h2>
+
+    <div class="stats three" data-reveal>
+      <div class="stat">
+        <p class="label">Revenue in year one</p>
+        <p class="stat-num"><span class="tilde">~</span>&#8377;<span data-count="66">66</span><span class="unit">L</span></p>
+        <p class="stat-cap">Phase 1 and 1.2.</p>
       </div>
-      <div>
-        <p class="hf-value plain">26%</p>
-        <p class="hf-label">Margin, on ~&#8377;17L profit</p>
+      <div class="stat">
+        <p class="label">Margin</p>
+        <p class="stat-num"><span data-count="26">26</span><span class="unit">%</span></p>
+        <p class="stat-cap">on ~&#8377;17L profit.</p>
       </div>
-      <div>
-        <p class="hf-value plain">~940</p>
-        <p class="hf-label">Orders, spread across all four types</p>
+      <div class="stat">
+        <p class="label">Orders</p>
+        <p class="stat-num"><span class="tilde">~</span><span data-count="940">940</span></p>
+        <p class="stat-cap">Spread across all four product types.</p>
       </div>
     </div>
 
-    <div class="table-scroll">
-      <table class="grid-table figures">
-        <caption>Year one, Phase 1 and 1.2</caption>
+    <figure class="chart-figure" data-reveal>
+      <p class="label">Monthly revenue, &#8377; lakh</p>
+      <div class="chart-scroll">
+        <svg class="chart" viewBox="0 0 1200 470" role="img"
+             aria-label="Line chart of monthly revenue for the Wellness Store, July 2025 to June 2026, in lakh rupees. It climbs from 0.4 in July 2025 to a peak of 11.6 in April 2026, then falls for three months to 4.2 in June 2026."
+             preserveAspectRatio="xMidYMid meet">
+          <g aria-hidden="true">
+            <g class="grid">
+              <line x1="70" y1="40"  x2="1150" y2="40"></line>
+              <line x1="70" y1="120" x2="1150" y2="120"></line>
+              <line x1="70" y1="200" x2="1150" y2="200"></line>
+              <line x1="70" y1="280" x2="1150" y2="280"></line>
+              <line x1="70" y1="360" x2="1150" y2="360" class="axis"></line>
+            </g>
+            <g class="tick y">
+              <text x="58" y="22" class="unit">₹L</text>
+              <text x="58" y="44">12</text>
+              <text x="58" y="124">9</text>
+              <text x="58" y="204">6</text>
+              <text x="58" y="284">3</text>
+              <text x="58" y="364">0</text>
+            </g>
+            <path class="area" d="M70,349.33 L168.18,301.33 L266.36,248 L364.55,253.33 L462.73,245.33 L560.91,269.33 L659.09,258.67 L757.27,192 L855.45,80 L953.64,50.67 L1051.82,109.33 L1150,248 L1150,360 L70,360 Z"></path>
+            <path class="line" pathLength="1" d="M70,349.33 L168.18,301.33 L266.36,248 L364.55,253.33 L462.73,245.33 L560.91,269.33 L659.09,258.67 L757.27,192 L855.45,80 L953.64,50.67 L1051.82,109.33 L1150,248"></path>
+            <g class="dots">
+              <circle cx="70" cy="349.33" r="4"></circle>
+              <circle cx="168.18" cy="301.33" r="4"></circle>
+              <circle cx="266.36" cy="248" r="4"></circle>
+              <circle cx="364.55" cy="253.33" r="4"></circle>
+              <circle cx="462.73" cy="245.33" r="4"></circle>
+              <circle cx="560.91" cy="269.33" r="4"></circle>
+              <circle cx="659.09" cy="258.67" r="4"></circle>
+              <circle cx="757.27" cy="192" r="4"></circle>
+              <circle cx="855.45" cy="80" r="4"></circle>
+              <circle cx="1051.82" cy="109.33" r="4"></circle>
+              <circle cx="1150" cy="248" r="4"></circle>
+            </g>
+            <g class="peak">
+              <line x1="953.64" y1="50.67" x2="953.64" y2="360"></line>
+              <circle cx="953.64" cy="50.67" r="7.5"></circle>
+              <text x="953.64" y="26">11.6</text>
+            </g>
+            <g class="tick x">
+              <text x="70">Jul</text>
+              <text x="168.18">Aug</text>
+              <text x="266.36">Sep</text>
+              <text x="364.55">Oct</text>
+              <text x="462.73">Nov</text>
+              <text x="560.91">Dec</text>
+              <text x="659.09">Jan</text>
+              <text x="757.27">Feb</text>
+              <text x="855.45">Mar</text>
+              <text x="953.64">Apr</text>
+              <text x="1051.82">May</text>
+              <text x="1150">Jun</text>
+            </g>
+            <g class="band">
+              <line x1="70" y1="422" x2="855.45" y2="422"></line>
+              <text x="70" y="443">Phase 1 live, catalog and vendors scaling</text>
+              <line x1="953.64" y1="422" x2="1150" y2="422"></line>
+              <text x="1150" y="443" text-anchor="end">Softening &#8594; Phase 2</text>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <figcaption class="cap"><span>Fig. 03</span>The store opened at roughly ₹44,000 in its first month and climbed slowly through autumn, flattening around ₹4L while the catalog and vendor integrations scaled. It accelerated sharply from February, more than doubling in two months to a peak of about ₹11.6L in April 2026, then softened for three consecutive months, falling back to ₹4.2L by June. That fall is what Phase 2 was designed to answer. July 2026 is a partial month and is not plotted.</figcaption>
+
+      <div class="sr-only">
+        <table>
+        <caption>Wellness Store monthly revenue, in lakh rupees (₹L)</caption>
+        <thead><tr><th scope="col">Month</th><th scope="col">Revenue (₹L)</th></tr></thead>
         <tbody>
-          <tr>
-            <th scope="row">Revenue</th>
-            <td class="fig">~₹66L</td>
-            <td>Year one, Phase 1 and 1.2.</td>
-          </tr>
-          <tr>
-            <th scope="row">Profit</th>
-            <td class="fig">~₹17L</td>
-            <td>A 26% margin.</td>
-          </tr>
-          <tr>
-            <th scope="row">Orders</th>
-            <td class="fig plain">~940</td>
-            <td>Spread across all four product types, the one-IA objective holding in
-              practice, not only in Figma.</td>
-          </tr>
-          <tr>
-            <th scope="row">Growth</th>
-            <td class="fig">~₹44K &rarr; ~₹11.6L</td>
-            <td>Month one to the April 2026 monthly peak.</td>
-          </tr>
-          <tr>
-            <th scope="row">Top lines</th>
-            <td class="fig">~₹37L / ~₹19L</td>
-            <td>A fitness membership tie-up, then Diabetes Care. Programs and
-              memberships were the strongest earners.</td>
-          </tr>
-          <tr>
-            <th scope="row">Current pace</th>
-            <td class="fig plain">~34% ahead</td>
-            <td>Early July tracking ahead on GMV. A partial month, so it is not plotted
-              on the curve.</td>
-          </tr>
+          <tr><th scope="row">July 2025</th><td>0.4</td></tr>
+          <tr><th scope="row">August 2025</th><td>2.2</td></tr>
+          <tr><th scope="row">September 2025</th><td>4.2</td></tr>
+          <tr><th scope="row">October 2025</th><td>4.0</td></tr>
+          <tr><th scope="row">November 2025</th><td>4.3</td></tr>
+          <tr><th scope="row">December 2025</th><td>3.4</td></tr>
+          <tr><th scope="row">January 2026</th><td>3.8</td></tr>
+          <tr><th scope="row">February 2026</th><td>6.3</td></tr>
+          <tr><th scope="row">March 2026</th><td>10.5</td></tr>
+          <tr><th scope="row">April 2026 (peak)</th><td>11.6</td></tr>
+          <tr><th scope="row">May 2026</th><td>9.4</td></tr>
+          <tr><th scope="row">June 2026</th><td>4.2</td></tr>
+        </tbody>
+        </table>
+      </div>
+    </figure>
+
+    <div class="table-wrap" data-reveal>
+      <table class="landscape figures">
+        <caption class="sr-only">Year one, Phase 1 and 1.2</caption>
+        <tbody>
+          <tr><th scope="row">Revenue</th><td class="fig">~₹66L</td><td>Year one, Phase 1 and 1.2.</td></tr>
+          <tr><th scope="row">Profit</th><td class="fig">~₹17L</td><td>A 26% margin.</td></tr>
+          <tr><th scope="row">Orders</th><td class="fig">~940</td><td>Spread across all four product types, the one-IA objective holding in practice, not only in Figma.</td></tr>
+          <tr><th scope="row">Growth</th><td class="fig">~₹44K &rarr; ~₹11.6L</td><td>Month one to the April 2026 monthly peak.</td></tr>
+          <tr><th scope="row">Top lines</th><td class="fig">~₹37L / ~₹19L</td><td>A fitness membership tie-up, then Diabetes Care. Programs and memberships were the strongest earners.</td></tr>
+          <tr><th scope="row">Current pace</th><td class="fig">~34% ahead</td><td>Early July tracking ahead on GMV. A partial month, so it is not plotted on the curve.</td></tr>
         </tbody>
       </table>
     </div>
+
+    <div class="split closing" data-reveal>
+      <div class="prose">
+        <p class="label">On attribution</p>
+        <p class="lead">Revenue reflects catalog, pricing and marketing alongside design. Design supported this outcome; it did not solely cause it.</p>
+      </div>
+      <div class="prose">
+        <p>The wallet remains the strategic bet, still early-volume, with today&rsquo;s performance overwhelmingly direct sales.</p>
+        <p>These say the store works as a business. They do not isolate design. No design objective was instrumented, which is what the last section asks for.</p>
+      </div>
+    </div>
   </div>
-  <figure class="chart-figure in-results">
-    <div class="chart-scroll">
-      <svg class="chart" viewBox="0 0 1200 470" role="img"
-           aria-label="Line chart of monthly revenue for the Wellness Store, July 2025 to June 2026, in lakh rupees. It climbs from 0.4 in July 2025 to a peak of 11.6 in April 2026, then falls for three months to 4.2 in June 2026."
-           preserveAspectRatio="xMidYMid meet">
+</section>
 
-        <g aria-hidden="true">
-          <!-- gridlines -->
-          <g class="grid">
-            <line x1="70" y1="40"  x2="1150" y2="40"></line>
-            <line x1="70" y1="120" x2="1150" y2="120"></line>
-            <line x1="70" y1="200" x2="1150" y2="200"></line>
-            <line x1="70" y1="280" x2="1150" y2="280"></line>
-            <line x1="70" y1="360" x2="1150" y2="360" class="axis"></line>
-          </g>
 
-          <!-- y axis labels -->
-          <g class="tick y">
-            <text x="58" y="22" class="unit">₹L</text>
-            <text x="58" y="44">12</text>
-            <text x="58" y="124">9</text>
-            <text x="58" y="204">6</text>
-            <text x="58" y="284">3</text>
-            <text x="58" y="364">0</text>
-          </g>
+<!-- ============================================================= PHASE 2 -->
+<section id="phase2" data-title="Phase 2">
+  <div class="wrap">
+    <p class="sec-idx" data-reveal><span>13</span>Phase 2</p>
+    <h2 class="sec-title" data-reveal>When the input cannot be fixed, change what carries the trust.</h2>
+    <p class="band" data-reveal>Trust and discovery journey <span class="chip">In development</span></p>
 
-          <!-- area under the curve -->
-          <path class="area"
-                d="M70,349.33 L168.18,301.33 L266.36,248 L364.55,253.33 L462.73,245.33 L560.91,269.33 L659.09,258.67 L757.27,192 L855.45,80 L953.64,50.67 L1051.82,109.33 L1150,248 L1150,360 L70,360 Z"></path>
-
-          <!-- the line itself -->
-          <path class="line" pathLength="1"
-                d="M70,349.33 L168.18,301.33 L266.36,248 L364.55,253.33 L462.73,245.33 L560.91,269.33 L659.09,258.67 L757.27,192 L855.45,80 L953.64,50.67 L1051.82,109.33 L1150,248"></path>
-
-          <!-- data points -->
-          <g class="dots">
-            <circle cx="70" cy="349.33" r="4"></circle>
-            <circle cx="168.18" cy="301.33" r="4"></circle>
-            <circle cx="266.36" cy="248" r="4"></circle>
-            <circle cx="364.55" cy="253.33" r="4"></circle>
-            <circle cx="462.73" cy="245.33" r="4"></circle>
-            <circle cx="560.91" cy="269.33" r="4"></circle>
-            <circle cx="659.09" cy="258.67" r="4"></circle>
-            <circle cx="757.27" cy="192" r="4"></circle>
-            <circle cx="855.45" cy="80" r="4"></circle>
-            <circle cx="1051.82" cy="109.33" r="4"></circle>
-            <circle cx="1150" cy="248" r="4"></circle>
-          </g>
-
-          <!-- the April peak: the one full-strength accent mark on the chart -->
-          <g class="peak">
-            <line x1="953.64" y1="50.67" x2="953.64" y2="360"></line>
-            <circle cx="953.64" cy="50.67" r="7.5"></circle>
-            <text x="953.64" y="26">11.6</text>
-          </g>
-
-          <!-- month ticks -->
-          <g class="tick x">
-            <text x="70">Jul</text>
-            <text x="168.18">Aug</text>
-            <text x="266.36">Sep</text>
-            <text x="364.55">Oct</text>
-            <text x="462.73">Nov</text>
-            <text x="560.91">Dec</text>
-            <text x="659.09">Jan</text>
-            <text x="757.27">Feb</text>
-            <text x="855.45">Mar</text>
-            <text x="953.64">Apr</text>
-            <text x="1051.82">May</text>
-            <text x="1150">Jun</text>
-          </g>
-
-          <!-- phase bands -->
-          <g class="band">
-            <line x1="70" y1="422" x2="855.45" y2="422"></line>
-            <text x="70" y="443">Phase 1 live, catalog and vendors scaling</text>
-            <line x1="953.64" y1="422" x2="1150" y2="422"></line>
-            <text x="1150" y="443" text-anchor="end">Softening &#8594; Phase 2</text>
-          </g>
-        </g>
-      </svg>
+    <div class="split" data-reveal>
+      <div class="prose">
+        <p class="label">Why</p>
+        <p class="lead">Revenue peaked in April, then softened for three straight months.</p>
+      </div>
+      <div class="prose">
+        <p>The likeliest cause was specific: inconsistent, low-quality vendor photography eroding trust at the point of decision. The catalog arrived through vendor tie-ups, so the imagery was never the design team&rsquo;s to control, and chasing vendors for better images was neither fast nor reliable.</p>
+      </div>
     </div>
 
-    <figcaption>
-      Monthly revenue in lakh rupees, July 2025 through June 2026. The store opened at
-      roughly ₹44,000 in its first month and climbed slowly through autumn, flattening
-      around ₹4L while the catalog and vendor integrations scaled. It accelerated
-      sharply from February, more than doubling in two months to a peak of about
-      ₹11.6L in April 2026, then softened for three consecutive months, falling back
-      to ₹4.2L by June. That fall is what Phase 2 was designed to answer. July 2026 is
-      a partial month and is not plotted.
-    </figcaption>
-
-    <div class="sr-only">
-      <table>
-      <caption>Wellness Store monthly revenue, in lakh rupees (₹L)</caption>
-      <thead><tr><th scope="col">Month</th><th scope="col">Revenue (₹L)</th></tr></thead>
-      <tbody>
-        <tr><th scope="row">July 2025</th><td>0.4</td></tr>
-        <tr><th scope="row">August 2025</th><td>2.2</td></tr>
-        <tr><th scope="row">September 2025</th><td>4.2</td></tr>
-        <tr><th scope="row">October 2025</th><td>4.0</td></tr>
-        <tr><th scope="row">November 2025</th><td>4.3</td></tr>
-        <tr><th scope="row">December 2025</th><td>3.4</td></tr>
-        <tr><th scope="row">January 2026</th><td>3.8</td></tr>
-        <tr><th scope="row">February 2026</th><td>6.3</td></tr>
-        <tr><th scope="row">March 2026</th><td>10.5</td></tr>
-        <tr><th scope="row">April 2026 (peak)</th><td>11.6</td></tr>
-        <tr><th scope="row">May 2026</th><td>9.4</td></tr>
-        <tr><th scope="row">June 2026</th><td>4.2</td></tr>
-      </tbody>
-      </table>
-    </div>
-  </figure>
-
-  <div class="measure">
-    <p class="caveat">
-      <span class="caveat-label">On attribution</span>
-      Revenue reflects catalog, pricing and marketing alongside design. Design supported
-      this outcome; it did not solely cause it. The wallet remains the strategic bet,
-      still early-volume, with today's performance overwhelmingly direct sales.
-    </p>
-  </div>
-  <div class="measure">
-    <p class="fig-note">These say the store works as a business. They do not isolate
-      design. No design objective was instrumented, which is what the last section asks
-      for.</p>
-  </div>
-
-  <div class="breakout phase-band">
-    <p class="phase-band-label">Phase 2 <span class="chip">In development</span></p>
-  </div>
-
-  <div class="breakout journey">
-    <p class="j-head"><span class="j-name">Trust and discovery journey</span><span class="phase-tag">Phase 2, in development</span></p>
-    <ol class="spine j-spine">
-        <li><span class="sp-n">1</span><span class="sp-t">Home</span></li>
-        <li><span class="sp-n">2</span><span class="sp-t">Category</span></li>
-        <li><span class="sp-n">3</span><span class="sp-t">Sub-category</span></li>
-        <li><span class="sp-n">4</span><span class="sp-t">Shop by concern</span></li>
-    </ol>
-    <div class="j-scroll"><div class="j-strip">
+    <article class="journey" data-reveal>
+      <div class="j-top">
+        <h3 class="j-name">Trust and discovery</h3>
+        <ol class="spine"><li>Home</li><li>Category</li><li>Sub-category</li><li>Shop by concern</li></ol>
+      </div>
+      <div class="strip" tabindex="0" aria-label="Trust and discovery journey screens, scrollable">
         <figure><img src="public/screens/phase2/home.png" alt="Phase 2 home: category tabs across the top, a brand banner, and a deals row beneath." width="360" height="810" loading="lazy" decoding="async"><figcaption>Home</figcaption></figure>
         <figure><img src="public/screens/phase2/category.png" alt="Categories: Health Devices and Diagnostics as a tile grid of BP monitors, glucometers, CGM devices and test kits, with Wearables and Smart Health Tech below." width="360" height="810" loading="lazy" decoding="async"><figcaption>Category</figcaption></figure>
         <figure><img src="public/screens/phase2/devices.png" alt="Devices category: a left-hand category rail beside a filtered product grid." width="360" height="810" loading="lazy" decoding="async"><figcaption>Sub-category</figcaption></figure>
         <figure><img src="public/screens/phase2/concern.png" alt="Shop by concern: a Diabetes header over Shop by Product type filters, product cards and a trending row." width="360" height="810" loading="lazy" decoding="async"><figcaption>Shop by concern</figcaption></figure>
-    </div></div>
-    <div class="j-feature">
-      <figure>
+      </div>
+    </article>
+
+    <div class="sticky-split brand" data-reveal>
+      <div class="ss-text">
+        <p class="label">Brand page, in full</p>
+        <p class="pull">The end of the journey and the whole point of it.</p>
+        <div class="prose">
+          <p>The banner, the product lineup and the discount bands are merchandising design controls, sitting where an unreliable vendor photograph used to carry the decision.</p>
+          <p>It doubles as a browse surface: shop by product type, top deals, curated rows. One page answering both trust and discovery.</p>
+        </div>
+        <dl class="dda">
+          <div><dt>Designed</dt><dd>Brand-owned hero banners, shop by concern, shop by product type, curated brand collections, and category and sub-category pages.</dd></div>
+          <div><dt>Intent</dt><dd>Brand identity carries the trust an unreliable photo cannot; the same pages double as browse surfaces.</dd></div>
+        </dl>
+        <p class="caveat">Brand Pages add an IA layer, a real trade-off, in exchange for a fix that does not wait on vendors. The org prioritised it into development. It has not shipped, so there is nothing here to claim.</p>
+      </div>
+      <figure class="brand-page">
         <img src="public/screens/phase2/brand-full.png" alt="Brand page in full: an Accu-Chek hero banner with the product lineup, a Top deals row, Shop by Product type filters for glucometer, glucose strips and lancets, product cards with an Add action, an Explore more link, a 55% discount band and a 50% off row, above the bottom tab bar." width="360" height="1724" loading="lazy" decoding="async">
-        <figcaption>Brand page, in full</figcaption>
       </figure>
-      <div class="j-feature-note">
-        <p class="fig-note">The end of the journey and the whole point of it. The banner,
-          the product lineup and the discount bands are merchandising design controls,
-          sitting where an unreliable vendor photograph used to carry the decision.</p>
-        <p class="fig-note">It doubles as a browse surface: shop by product type, top
-          deals, curated rows. One page answering both trust and discovery.</p>
-      </div>
-    </div>
-      <dl class="fs-fields j-fields">
-        <div><dt>Why</dt><dd>Revenue peaked in April, then softened for three straight
-          months. The likeliest cause was specific: inconsistent, low-quality vendor
-          photography eroding trust at the point of decision. The catalog arrived through
-          vendor tie-ups, so the imagery was never the design team&rsquo;s to control, and
-          chasing vendors for better images was neither fast nor reliable.</dd></div>
-        <div><dt>Designed</dt><dd><ul class="fs-covered">
-          <li>Brand-owned hero banners</li>
-          <li>Shop by concern</li>
-          <li>Shop by product type</li>
-          <li>Curated brand collections</li>
-          <li>Category and sub-category pages</li>
-        </ul></dd></div>
-        <div><dt>Decision</dt><dd>When the input cannot be fixed, change what carries the trust</dd></div>
-        <div><dt>Intent</dt><dd>Brand identity carries the trust an unreliable photo cannot; the same pages double as browse surfaces</dd></div>
-      </dl>
-    <p class="fig-note measure-in caveat-inline">
-      Brand Pages add an IA layer, a real trade-off, in exchange for a fix that does not
-      wait on vendors. The org prioritised it into development. It has not shipped, so
-      there is nothing here to claim.
-    </p>
-  </div>
-</section>
-
-<!-- =================================================== 14 KEY LEARNINGS -->
-<section id="learnings">
-  <div class="shell">
-    <div class="rail"><p class="num">12</p><p class="rail-note">Three, in my own words</p></div>
-    <div class="body">
-    <h2>Key learnings</h2>
-    </div>
-  </div>
-
-  <div class="breakout">
-    <div class="chal-blocks learn-blocks">
-      <div class="chal">
-        <p class="chal-n">01</p>
-        <p class="chal-name">Deconstruct the design system before extending it</p>
-        <p class="chal-text">I had to take the DLS apart component by component to see
-          what could carry commerce and what had to be rebuilt. Extending a system I had
-          not pulled apart first would have been guesswork, and the guesses would have
-          shipped.</p>
-      </div>
-      <div class="chal">
-        <p class="chal-n">02</p>
-        <p class="chal-name">Annotate, and hand over the assets with it</p>
-        <p class="chal-text">Annotating every screen and shipping an asset file alongside
-          it did more for delivery than any handover meeting. It made the work easier for
-          me and for the dev team, and it took most of the back and forth out of the
-          build.</p>
-      </div>
-      <div class="chal">
-        <p class="chal-n">03</p>
-        <p class="chal-name">Iterate toward what people already know</p>
-        <p class="chal-text">User feedback kept pointing at familiarity rather than
-          novelty. Each round told me where people expected something they had seen
-          before, and the flow got simpler every time I listened to that.</p>
-      </div>
     </div>
   </div>
 </section>
 
-<!-- ====================================================== 15 NEXT STEPS -->
-<section id="next">
-  <div class="shell">
-    <div class="rail"><p class="num">13</p><p class="rail-note">What would settle it</p></div>
-    <div class="body">
-    <h2>Next steps</h2>
-    <ul class="next-list">
-      <li>Ship Phase 2 and measure whether the trust fix reverses the softening. That
-        is the direct test of the diagnosis, and the only thing that will settle it.</li>
-      <li>Grow wallet adoption, the clearest lever for the loyalty goal the store was
-        built for, and still the early-volume part of the business.</li>
-      <li>Instrument the design objectives, so future changes are validated rather than
-        reasoned about.</li>
-      <li>Extend into AI-driven personalization, building on the rule-based
-        personalization already live.</li>
-    </ul>
-    </div>
+
+<!-- ======================================================= KEY LEARNINGS -->
+<section id="learnings" data-title="Key learnings">
+  <div class="wrap">
+    <p class="sec-idx" data-reveal><span>14</span>Key learnings</p>
+    <h2 class="sec-title" data-reveal>Three learnings, in my own words.</h2>
+
+    <ol class="learnings">
+      <li data-reveal>
+        <p class="l-num">01</p>
+        <h3>Deconstruct the design system before extending it</h3>
+        <p>I had to take the DLS apart component by component to see what could carry commerce and what had to be rebuilt. Extending a system I had not pulled apart first would have been guesswork, and the guesses would have shipped.</p>
+      </li>
+      <li data-reveal>
+        <p class="l-num">02</p>
+        <h3>Annotate, and hand over the assets with it</h3>
+        <p>Annotating every screen and shipping an asset file alongside it did more for delivery than any handover meeting. It made the work easier for me and for the dev team, and it took most of the back and forth out of the build.</p>
+      </li>
+      <li data-reveal>
+        <p class="l-num">03</p>
+        <h3>Iterate toward what people already know</h3>
+        <p>User feedback kept pointing at familiarity rather than novelty. Each round told me where people expected something they had seen before, and the flow got simpler every time I listened to that.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+
+<!-- ========================================================== NEXT STEPS -->
+<section id="next" data-title="Next steps">
+  <div class="wrap">
+    <p class="sec-idx" data-reveal><span>15</span>Next steps</p>
+    <h2 class="sec-title" data-reveal>What would settle it.</h2>
+
+    <ol class="measures wide" data-reveal>
+      <li>Ship Phase 2 and measure whether the trust fix reverses the softening. That is the direct test of the diagnosis, and the only thing that will settle it.</li>
+      <li>Grow wallet adoption, the clearest lever for the loyalty goal the store was built for, and still the early-volume part of the business.</li>
+      <li>Instrument the design objectives, so future changes are validated rather than reasoned about.</li>
+      <li>Extend into AI-driven personalization, building on the rule-based personalization already live.</li>
+    </ol>
   </div>
 </section>
 
 </main>
 
-<footer>
-  <div class="measure">
-    <p>Wellness Store, Bajaj Finserv Health. Case study, 2025–2026.</p>
+
+<footer class="end dark">
+  <div class="wrap">
+    <p class="end-mark" aria-hidden="true">Wellness Store</p>
+    <div class="end-row">
+      <p>Bajaj Finserv Health &middot; 2025&ndash;2026 &middot; Phase 1 live</p>
+      <p class="end-note">The <span class="wallet">blue</span> on this page marks one thing only: the wallet&rsquo;s value.</p>
+      <a class="to-top" href="#top">Back to top &uarr;</a>
+    </div>
   </div>
 </footer>
 
-<script>
-  /* ---------------------------------------------------------------------
-     Motion. Ambient only — the hero curve, the section reveals, the IA
-     connectors. These run without the visitor asking, so the whole class is
-     gated on prefers-reduced-motion and each one fires exactly once.
-     --------------------------------------------------------------------- */
-  (function () {
-    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    /* ---- 0. The section rail. Not motion — navigation — so it is wired
-             before the reduced-motion gate and runs for everyone. ---------- */
-    (function () {
-      var links = document.querySelectorAll('.railnav a');
-      if (!links.length) return;
-
-      var map = {};
-      var sections = [];
-      Array.prototype.forEach.call(links, function (a) {
-        var el = document.getElementById(a.hash.slice(1));
-        if (!el) return;
-        map[el.id] = a;
-        sections.push(el);
-      });
-      if (!sections.length) return;
-
-      var active = null;
-      var queued = false;
-
-      // A plain scroll read rather than a second IntersectionObserver: the
-      // reveal observer fires once per element and stops, while the rail has to
-      // track continuously in both directions. Different job, separate code.
-      function sync() {
-        queued = false;
-        var line = window.innerHeight * 0.28;
-        var current = sections[0];
-        sections.forEach(function (el) {
-          if (el.getBoundingClientRect().top <= line) current = el;
-        });
-        // at the very bottom the last section may never cross the line
-        if (window.innerHeight + window.scrollY >=
-            document.documentElement.scrollHeight - 2) {
-          current = sections[sections.length - 1];
-        }
-        if (current.id === active) return;
-        if (active && map[active]) map[active].removeAttribute('aria-current');
-        active = current.id;
-        map[active].setAttribute('aria-current', 'true');
-      }
-
-      function request() {
-        if (queued) return;
-        queued = true;
-        window.requestAnimationFrame(sync);
-      }
-
-      window.addEventListener('scroll', request, { passive: true });
-      window.addEventListener('resize', request, { passive: true });
-      sync();
-    })();
-
-    if (reduced) return;
-    document.documentElement.classList.add('js-motion');
-
-    /* ---- 1a. The cover settles in, then the title follows. ------------- */
-    ['.cover', '.hero-title'].forEach(function (sel) {
-      var el = document.querySelector(sel);
-      if (el) requestAnimationFrame(function () { el.classList.add('shown'); });
-    });
-
-    /* ---- 1b. Everything else waits until it is actually on screen. ----- */
-    if (!('IntersectionObserver' in window)) {
-      document.documentElement.classList.remove('js-motion');
-      return;
-    }
-
-    var targets = [];
-    document.querySelectorAll("main > section").forEach(function (section) {
-      if (section.id === 'hero') return;
-      section.querySelectorAll(':scope > .shell, :scope > .breakout, :scope > .measure')
-        .forEach(function (el) {
-          // The IA diagram traces its own connectors. Fading its container at the
-          // same time gives one figure two independent timers, so the container
-          // that holds it is left alone and the trace is that section's motion.
-          if (el.querySelector('.dia')) return;
-          el.classList.add('reveal');
-          targets.push(el);
-        });
-    });
-
-    // every diagram, not just the first: a second one was added later and sat
-    // at opacity 0 forever because it was never observed
-    document.querySelectorAll('.dia').forEach(function (d) { targets.push(d); });
-
-    // the revenue curve moved out of the hero: it now draws when it is reached
-    var chart = document.querySelector('.chart');
-    if (chart) {
-      var chartIO = new IntersectionObserver(function (es) {
-        es.forEach(function (e) {
-          if (!e.isIntersecting) return;
-          e.target.classList.add('draw');
-          chartIO.disconnect();
-        });
-      }, { rootMargin: '0px 0px -15% 0px', threshold: 0 });
-      chartIO.observe(chart);
-      window.setTimeout(function () { chart.classList.add('draw'); }, 2500);
-    }
-
-    // threshold 0, not a ratio: a ratio would never be reached by an element
-    // taller than the root, which is exactly what the screen groups are.
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        delivered = true;
-        entry.target.classList.add('shown');
-        io.unobserve(entry.target);
-        var k = targets.indexOf(entry.target);
-        if (k > -1) targets.splice(k, 1);
-      });
-    }, { rootMargin: '0px 0px -12% 0px', threshold: 0 });
-
-    var delivered = false;
-    targets.forEach(function (el) { io.observe(el); });
-
-    // Belt and braces. Reveal-on-scroll hides content until something says
-    // otherwise, so the observer is never the only thing that can reveal it:
-    // a plain scroll read does the same job, and anything already at or above
-    // the fold is shown straight away.
-    function sweep() {
-      var line = window.innerHeight * 0.92;
-      for (var i = targets.length - 1; i >= 0; i--) {
-        if (targets[i].getBoundingClientRect().top < line) {
-          targets[i].classList.add('shown');
-          io.unobserve(targets[i]);
-          targets.splice(i, 1);
-        }
-      }
-      if (!targets.length) {
-        window.removeEventListener('scroll', onScroll);
-        window.removeEventListener('resize', onScroll);
-      }
-    }
-    var pending = false;
-    function onScroll() {
-      if (pending) return;
-      pending = true;
-      window.requestAnimationFrame(function () { pending = false; sweep(); });
-    }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
-    sweep();
-
-    // and if none of that ran, drop the ambient layer rather than leave a blank page
-    window.setTimeout(function () {
-      if (delivered || !targets.length) return;
-      document.documentElement.classList.remove('js-motion');
-      io.disconnect();
-    }, 2500);
-  })();
-</script>
-
+<script src="script.js" defer></script>
 </body>
 </html>
