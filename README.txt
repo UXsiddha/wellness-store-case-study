@@ -1,11 +1,11 @@
 Wellness Store case study, deploy bundle.
 
-Everything is relative, so this folder works from any web root with no build step.
+Live at https://uxsiddha.github.io/wellness-store-case-study/
+(GitHub Pages, served from the main branch of this repo.)
 
-To publish, free:
-  1. app.netlify.com/drop
-  2. drag this whole folder onto the page
-  3. sign up free when prompted, so the URL is permanent
-  4. in Framer: thumbnail -> Link -> paste the URL -> New Tab
+This folder is generated. Do not edit it by hand.
+  1. Edit the source files in ~/Desktop/zzwork (index.html, styles.css, script.js).
+  2. Rebuild this folder with only the files the page loads.
+  3. Commit and push. Pages rebuilds at the same URL in about a minute.
 
-Re-drag the folder to update; the URL stays the same.
+Everything is relative, so the folder also works from any other web root.
