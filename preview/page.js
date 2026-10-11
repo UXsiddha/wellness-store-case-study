@@ -36,6 +36,6 @@
     });
   });
 
-  K.story($('#dec-story'));
+  K.story($('#wallet-story'));
   K.start();
 })();
