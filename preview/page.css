@@ -1,0 +1,138 @@
+/* =========================================================================
+   page.css: Wellness Store. The shared system lives in kit.css; this file
+   sets the project's accent and the few components only this story needs.
+   The accent is the product's own blue, lifted for black, and marks one
+   thing first: the wallet's value.
+   ========================================================================= */
+:root { --accent-rgb: 111, 178, 247; --accent-2: #A9D1FB; }
+.wallet { color: var(--accent); }
+
+/* hero: the product's own blue lights the stage */
+.a-phone .device { width: min(300px, 100%); }
+
+/* the collapse ends in one cart, not a typed question */
+.c-cart { --a: clamp(0, calc((var(--p) - 0.62) * 3.2), 1); justify-self: center; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; opacity: var(--a); transform: translateY(calc((1 - var(--a)) * 16px)); }
+.c-cart span { padding: 0.6rem 1rem; border: 1px solid var(--line-2); border-radius: var(--r); background: var(--bg-3); font: 500 1rem var(--display); color: var(--fg); }
+.c-cart .wallet { border-color: rgba(var(--accent-rgb), 0.5); color: var(--accent); }
+.act-c.is-after .c-steps .swap:last-child i { background: var(--signal); border-color: var(--signal); }
+.act-c.is-after .c-steps .swap:last-child .b { color: var(--accent); }
+.no-pin .c-cart { opacity: 1; transform: none; }
+
+/* constraints, two up */
+.cols.two-up { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); }
+.cols.two-up dt { font: 500 0.8rem/1.4 var(--display) !important; letter-spacing: 0.04em; color: var(--fg); }
+.cols.two-up dd { font: 400 1rem/1.6 var(--sans); color: var(--fg-2); }
+
+/* the approach loop, each step with its note */
+.loop-notes li { flex-direction: column; align-items: flex-start; justify-content: flex-end; gap: 0.4rem; min-height: 9.5rem; }
+.loop-notes b { font: 500 clamp(1rem, 1.35vw, 1.2rem)/1.2 var(--display); color: inherit; }
+.loop-notes small { font: 400 0.82rem/1.4 var(--sans); color: var(--fg-3); }
+.loop-notes .is-loop b::after { content: ' \21BB'; color: var(--accent); }
+
+/* the information architecture diagram, on black */
+.dia { display: block; width: 100%; min-width: 720px; height: auto; }
+.dia .d-box { fill: var(--bg-3); stroke: var(--line-2); stroke-width: 1; }
+.dia .d-key { fill: rgba(var(--accent-rgb), 0.08); stroke: var(--accent); stroke-width: 1.25; }
+.dia .d-col { font: 500 12px var(--display); letter-spacing: 0.08em; text-transform: uppercase; fill: var(--fg-3); }
+.dia .d-t { font: 600 15px var(--display); fill: var(--fg); }
+.dia .d-s { font: 400 13px var(--sans); fill: var(--fg-2); }
+.dia .d-cta { font: 600 14px var(--display); fill: var(--accent); }
+.dia .d-note { font: italic 400 12px var(--sans); fill: var(--fg-3); }
+.dia .d-line { fill: none; stroke: var(--fg-3); stroke-width: 1.5; }
+.dia .d-dash { stroke-dasharray: 3 4; }
+.sys-node small { font-family: var(--sans); font-size: 0.76rem; }
+.sys-node b + small { margin-bottom: 0.4rem; }
+
+/* research: five screens in a row */
+.screens-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); max-width: 1280px; }
+.screens-5 .scr img { border-radius: 18px; }
+.screens-5 .scr:nth-child(even) { margin-top: 3rem; }
+
+/* behind the scenes */
+.bts { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: clamp(1rem, 2.5vw, 2rem); align-items: start; margin-bottom: 1rem; }
+.bts figure { margin: 0; }
+.bts img { width: 100%; border-radius: 14px; box-shadow: 0 0 0 1px var(--line-2); }
+
+/* the story media on this page are phones */
+.story-media .device { width: min(280px, 100%); }
+
+/* phases: the name carries its status */
+.disc.phases li > span:nth-child(1) { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.6rem; color: var(--fg); font: 500 1.05rem/1.4 var(--display); }
+.disc.phases li > span:nth-child(1) b { width: 100%; font: 500 0.72rem var(--display); letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg-3); }
+.disc.phases li > span:nth-child(1) i { font-style: normal; }
+.disc.phases li > span:nth-child(2) { color: var(--fg-2); font: 400 0.98rem/1.5 var(--sans); }
+
+/* journeys */
+.journey { margin-top: clamp(4rem, 8vw, 6rem); padding-top: 2rem; border-top: 1px solid var(--line); }
+.j-top { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 2fr); gap: var(--gap); align-items: center; }
+.j-top .h-sub { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
+.loop.spine { margin: 0; }
+.loop.spine li { flex: 1 1 6rem; min-height: 4.2rem; padding: 0.7rem 0.8rem; font-size: clamp(0.85rem, 1.05vw, 0.98rem) !important; }
+.strip { grid-auto-columns: minmax(150px, 1fr); }
+.strip-7 { grid-auto-columns: minmax(140px, 1fr); }
+.strip-3 { grid-auto-columns: minmax(180px, 220px); }
+.strip-4 { grid-auto-columns: minmax(170px, 230px); }
+.j-pair { margin-top: 3rem; align-items: center; }
+.j-pair .pair2 figure { margin: 0; }
+.j-pair .pair2 img { border-radius: 18px; }
+.j-card { margin-top: 3rem; align-items: center; }
+.card-close { margin: 0; padding: clamp(1.5rem, 4vw, 3rem); border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--bg-2); }
+.card-close img { width: 100%; max-width: 420px; margin: 0 auto; border-radius: 10px; }
+
+/* results */
+.m-num small.pre { margin-right: 0.08em; font-size: 0.42em; color: var(--fg-3); vertical-align: 0.9em; }
+.figures dt b { display: block; margin-top: 0.3rem; font: 400 clamp(1.4rem, 2.2vw, 1.9rem)/1.1 var(--display); letter-spacing: -0.03em; color: var(--fg); }
+.chart-figure { margin-left: 0; margin-right: 0; }
+.chart { display: block; width: 100%; min-width: 660px; height: auto; }
+.chart .grid line { stroke: var(--line); stroke-width: 1; }
+.chart .grid line.axis { stroke: var(--fg-3); }
+.chart .tick text { font: 400 15px var(--display); fill: var(--fg-3); }
+.chart .tick.y text { text-anchor: end; }
+.chart .tick.y .unit { font-size: 13px; }
+.chart .tick.x text { text-anchor: middle; }
+.chart .tick.x text:first-child { text-anchor: start; }
+.chart .tick.x text:last-child { text-anchor: end; }
+.chart .tick.x { transform: translateY(388px); }
+.chart .area { fill: rgba(var(--accent-rgb), 0.07); }
+.chart .line { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
+.chart .dots circle { fill: var(--bg-2); stroke: var(--fg); stroke-width: 2; }
+.chart .peak circle { fill: var(--accent); stroke: var(--bg-2); stroke-width: 3; }
+.chart .peak line { stroke: var(--fg); stroke-width: 1; stroke-dasharray: 2 4; opacity: 0.5; }
+.chart .peak text { font: 600 17px var(--display); fill: var(--fg); text-anchor: middle; }
+.chart .band line { stroke: var(--fg-3); stroke-width: 2; }
+.chart .band text { font: 400 13px var(--display); fill: var(--fg-3); }
+
+/* phase 2: the brand page scrolls past its own explanation */
+.brand { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: var(--gap); align-items: start; }
+.brand-text { position: sticky; top: calc(var(--bar) + 2rem); }
+.brand-page { margin: 0; justify-self: center; width: min(340px, 100%); }
+.brand-page img { width: 100%; border-radius: 26px; box-shadow: 0 0 0 1px var(--line-2), 0 50px 100px -50px rgba(var(--accent-rgb), 0.35); }
+
+/* next steps, on the opening's stage */
+.next-list > li { grid-template-columns: 2.5rem minmax(0, 1fr); }
+.next-list .k { font: 500 0.8rem var(--display); color: var(--accent); }
+.try-grid .a-phone { align-self: center; }
+
+@media (max-width: 1100px) {
+  .screens-5 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .screens-5 .scr:nth-child(even) { margin-top: 0; }
+}
+@media (max-width: 900px) {
+  .cols.two-up, .j-top, .bts, .brand { grid-template-columns: 1fr; }
+  .screens-5 { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: none; }
+  .brand-text { position: static; }
+  .loop-notes li { min-height: 0; }
+}
+@media (max-width: 560px) {
+  .chart { min-width: 0; overflow: visible; }
+  .chart .tick text { font-size: 34px; }
+  .chart .tick.y .unit { font-size: 28px; }
+  .chart .peak text { font-size: 40px; }
+  .chart .line { stroke-width: 6; }
+  .chart .grid line { stroke-width: 2.5; }
+  .chart .dots circle { r: 9px; stroke-width: 5; }
+  .chart .peak circle { r: 15px; stroke-width: 6; }
+  .chart .band { display: none; }
+  .chart .tick.x text:first-child, .chart .tick.x text:last-child { text-anchor: middle; }
+  .chart-scroll { overflow: visible; }
+}
