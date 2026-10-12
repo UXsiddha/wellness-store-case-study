@@ -13,7 +13,7 @@
   if (shots.length && rows.length) K.autoplay($('#top'), rows.length, function (i) {
     rows.forEach(function (li, k) { li.classList.toggle('is-now', k === i); });
     shots.forEach(function (im, k) { im.classList.toggle('is-on', k === i); });
-  }, 2600);
+  }, 2600, $('#hero-device').parentNode);
 
   /* C: the line runs between the first and last remaining dots */
   var actC = $('.act-c');

@@ -119,9 +119,9 @@
 }
 @media (max-width: 560px) {
   .chart { min-width: 0; overflow: visible; }
-  .chart .tick text { font-size: 34px; }
-  .chart .tick.y .unit { font-size: 28px; }
-  .chart .peak text { font-size: 40px; }
+  .chart .tick text { font-size: 44px; }
+  .chart .tick.y .unit { font-size: 34px; }
+  .chart .peak text { font-size: 50px; }
   .chart .line { stroke-width: 6; }
   .chart .grid line { stroke-width: 2.5; }
   .chart .dots circle { r: 9px; stroke-width: 5; }
@@ -209,7 +209,7 @@
 .m-k .tag-m { margin-left: 0.5rem; }
 .interp { padding: clamp(1.5rem, 3vw, 2.5rem); border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--bg-2); }
 .interp .kicker .tag-i { margin-right: 0.6rem; }
-.interp-list { margin: 1.5rem 0 0; padding: 0; list-style: none; display: grid; gap: 0.8rem; max-width: 46rem; }
+.interp-list { margin: 1.5rem 0 0; padding: 0; list-style: none; display: grid; gap: 0.8rem; max-width: 65ch; }
 .interp-list li { padding-left: 1rem; border-left: 1px solid var(--line-2); font-size: 0.98rem; line-height: 1.55; color: var(--fg-2); }
 .caveat .tag-i { margin-right: 0.4rem; }
 
